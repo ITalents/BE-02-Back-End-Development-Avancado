@@ -2,6 +2,7 @@
   "name": "be-02-back-end-development-avancado",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
@@ -32,6 +33,9 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "fastify": "^4.13.0"
+    "dotenv": "^16.0.3",
+    "fastify": "^4.13.0",
+    "mongodb": "^5.0.1",
+    "zod": "^3.20.6"
   }
 }

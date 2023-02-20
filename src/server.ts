@@ -1,9 +1,11 @@
 import fastify from 'fastify'
+import { db } from './database/db'
 
 const app = fastify()
 
-app.get('/hello', () => {
-  return 'Hello World'
+app.get('/products', async () => {
+  const products = await db.collection('products').find({}).toArray()
+  return products
 })
 
 app
