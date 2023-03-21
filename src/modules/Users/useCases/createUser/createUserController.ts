@@ -2,14 +2,16 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateUserService } from "./createUserService";
 
-export class createUserController {
+export class CreateUserController {
   async handle(req: Request, res: Response): Promise<Response> {
     const body = req.body;
     try {
-      const createUserService = container.resolve(CreateUserService)
-      
+      const createUserService = container.resolve(CreateUserService);
+      const result = await createUserService.execute(body);
+      console.log(result);
       return res.sendStatus(201);
     } catch (err: any) {
+      console.log(err);
       return res.status(500).send(err.messsage);
     }
   }
