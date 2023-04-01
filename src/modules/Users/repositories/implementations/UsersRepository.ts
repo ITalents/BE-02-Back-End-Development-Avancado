@@ -1,40 +1,106 @@
-import { Products } from "../../../Products/entities/Product";
+import { Product } from "../../../Products/entities/Product";
 import { Address } from "../../entities/Address";
 import { User } from "../../entities/User";
 import { IUsersRepository } from "../IUsersRepository";
-import connection from "../../../../database";
 import UserSchema from "../../schemas/UserSchema";
+import errors from "../../../../errors";
 
 export class UsersRepository implements IUsersRepository {
   async createUser(data: User): Promise<void> {
-    UserSchema.create(data);
+    await UserSchema.create(data);
   }
 
-  findByEmail(email: string): Promise<User> {
-    throw new Error("Method not implemented.");
+  async findByEmail(email: string): Promise<User> {
+    const user = await UserSchema.findOne({ email });
+    if (!user) throw errors.notFoundError();
+    return user;
   }
-  findAll(): Promise<User[]> {
-    throw new Error("Method not implemented.");
+
+  async findAll(limit: number, offset: number): Promise<User[]> {
+    return UserSchema.find().limit(limit).skip(offset);
   }
-  findById(id: string): Promise<User> {
-    throw new Error("Method not implemented.");
+
+  async findById(id: string): Promise<User> {
+    const user = await UserSchema.findById(id);
+    if (!user) throw errors.notFoundError();
+    return user;
   }
-  updateUser(id: string, data: User): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async updateUser(id: string, data: User): Promise<void> {
+    await UserSchema.findByIdAndUpdate(id, data, { returnDocument: "after" });
   }
-  removeUser(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async removeUser(id: string): Promise<void> {
+    await UserSchema.findByIdAndRemove(id);
   }
-  addNewAddress(userId: string, address: Address): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async addNewAddress(userId: string, address: Address): Promise<void> {
+    await UserSchema.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      {
+        $push: {
+          addresses: address,
+        },
+      },
+      {
+        rawResult: true,
+      }
+    );
   }
-  removeAddress(userId: string, address: Address): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async removeAddress(userId: string, address: Address): Promise<void> {
+    await UserSchema.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      {
+        $pull: {
+          addresses: {
+            _id: address._id,
+          },
+        },
+      },
+      {
+        rawResult: true,
+      }
+    );
   }
-  addNewFavoriteProduct(userId: string, produc: Products): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async addNewFavoriteProduct(userId: string, produc: Product): Promise<void> {
+    await UserSchema.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      {
+        $push: {
+          favorite_products: {
+            _id: produc._id,
+          },
+        },
+      },
+      {
+        rawResult: true,
+      }
+    );
   }
-  removeFavoriteProduct(userId: string, produc: Products): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async removeFavoriteProduct(userId: string, produc: Product): Promise<void> {
+    await UserSchema.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      {
+        $pull: {
+          favorite_products: {
+            _id: produc._id,
+          },
+        },
+      },
+      {
+        rawResult: true,
+      }
+    );
   }
 }

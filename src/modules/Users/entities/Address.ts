@@ -1,4 +1,7 @@
+import { ObjectId } from "mongodb";
+
 export class Address {
+  _id: ObjectId;
   street: string;
   number: number;
   complement: string;
@@ -6,11 +9,13 @@ export class Address {
   created_at: Date;
 
   constructor(
+    _id: ObjectId,
     street: string,
     number: number,
     complement: string,
     zipcode: string
   ) {
+    this._id = _id;
     this.street = street;
     this.number = number;
     this.complement = complement;
