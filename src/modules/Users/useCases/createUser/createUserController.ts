@@ -7,8 +7,7 @@ export class CreateUserController {
     const body = req.body;
     try {
       const createUserService = container.resolve(CreateUserService);
-      const result = await createUserService.execute(body);
-      console.log(result);
+      await createUserService.execute(body);
       return res.sendStatus(201);
     } catch (err: any) {
       console.log(err);

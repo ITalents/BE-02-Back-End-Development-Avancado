@@ -1,93 +1,40 @@
-import { Users, Addresses, Products } from "@prisma/client";
-
-import { ICreateUser } from "modules/Users/dtos/ICreateUser";
+import { Products } from "../../../Products/entities/Product";
+import { Address } from "../../entities/Address";
+import { User } from "../../entities/User";
 import { IUsersRepository } from "../IUsersRepository";
+import connection from "../../../../database";
+import UserSchema from "../../schemas/UserSchema";
 
 export class UsersRepository implements IUsersRepository {
-
-  async create(data: Users): Promise<void> {
-    await prisma.users.create({
-      data: data,
-    });
+  async createUser(data: User): Promise<void> {
+    UserSchema.create(data);
   }
 
-  async findByEmail(email: string): Promise<Users> {
-    const user = await prisma.users.findUnique({ where: { email } });
-    if (!user) throw new Error("User not found");
-    return user;
+  findByEmail(email: string): Promise<User> {
+    throw new Error("Method not implemented.");
   }
-
-  async findAll(): Promise<Users[]> {
-    return await prisma.users.findMany();
+  findAll(): Promise<User[]> {
+    throw new Error("Method not implemented.");
   }
-
-  async findById(id: string): Promise<Users> {
-    const user = await prisma.users.findUnique({ where: { id: id } });
-    if (!user) throw new Error("User not found");
-    return user;
+  findById(id: string): Promise<User> {
+    throw new Error("Method not implemented.");
   }
-
-  async update(id: string, data: Users): Promise<void> {
-    await prisma.users.update({
-      where: {
-        id: id,
-      },
-      data: data,
-    });
+  updateUser(id: string, data: User): Promise<void> {
+    throw new Error("Method not implemented.");
   }
-
-  async remove(id: string): Promise<void> {
-    await prisma.users.delete({
-      where: {
-        id: id,
-      },
-    });
+  removeUser(id: string): Promise<void> {
+    throw new Error("Method not implemented.");
   }
-
-  async addNewAddress(userId: string, address: Addresses): Promise<void> {
-    await prisma.users.update({
-      where: { id: userId },
-      data: {
-        addresses: {
-          set: address,
-        },
-      },
-    });
+  addNewAddress(userId: string, address: Address): Promise<void> {
+    throw new Error("Method not implemented.");
   }
-  async removeAddress(userId: string, address: Addresses): Promise<void> {
-    await prisma.users.update({
-      where: { id: userId },
-      data: {
-        addresses: {
-          set: address,
-        },
-      },
-    });
+  removeAddress(userId: string, address: Address): Promise<void> {
+    throw new Error("Method not implemented.");
   }
-  async addNewFavoriteProduct(
-    userId: string,
-    product: Products
-  ): Promise<void> {
-    await prisma.users.update({
-      where: { id: userId },
-      data: {
-        favorite_products: {
-          set: product,
-        },
-      },
-    });
+  addNewFavoriteProduct(userId: string, produc: Products): Promise<void> {
+    throw new Error("Method not implemented.");
   }
-  async removeFavoriteProduct(
-    userId: string,
-    product: Products
-  ): Promise<void> {
-    await prisma.users.update({
-      where: { id: userId },
-      data: {
-        favorite_products: {
-          set: product,
-        },
-      },
-    });
+  removeFavoriteProduct(userId: string, produc: Products): Promise<void> {
+    throw new Error("Method not implemented.");
   }
 }

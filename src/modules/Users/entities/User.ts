@@ -1,53 +1,29 @@
-import { Products } from "../../Products/entities/Products";
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ObjectIdColumn,
-  ObjectID,
-} from "typeorm";
-import { Addresses } from "./Addresses";
+import { Product } from "../../Products/entities/Product";
+import { Address } from "./Address";
+import { ObjectId } from "mongodb";
 
-@Entity("users")
 export class User {
-  @ObjectIdColumn()
-  id?: ObjectID;
-
-  @Column()
+  _id: ObjectId;
   name: string;
-
-  @Column()
   email: string;
-
-  @Column()
   password: string;
-
-  @Column()
-  image?: string;
-
-  @Column((type) => Addresses)
-  addresses?: Addresses[];
-
-  @Column((type) => Products)
-  favorite_products?: Products[];
-
-  @Column()
-  admin?: boolean;
-
-  @CreateDateColumn()
+  image: string;
+  addresses: Address[];
+  favorite_products: Product[];
+  admin: boolean;
   created_at: Date;
 
   constructor(
+    _id: ObjectId,
     name: string,
     email: string,
     password: string,
     admin: boolean,
-    created_at: Date,
-    image?: string,
-    addresses?: Addresses[],
-    favorite_products?: Products[]
+    image: string,
+    addresses: Address[],
+    favorite_products: Product[]
   ) {
-    this.id = new ObjectID();
+    this._id = _id;
     this.name = name;
     this.email = email;
     this.password = password;
@@ -55,6 +31,6 @@ export class User {
     this.addresses = addresses;
     this.favorite_products = favorite_products;
     this.admin = admin;
-    this.created_at = created_at;
+    this.created_at = new Date();
   }
 }

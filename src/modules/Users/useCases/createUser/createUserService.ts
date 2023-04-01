@@ -1,7 +1,7 @@
-import { IUsersRepository } from "modules/Users/repositories/IUsersRepository";
+import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { inject, injectable } from "tsyringe";
 import bcrypt from "bcrypt";
-import { Users } from "@prisma/client";
+import { User } from "../../entities/User";
 
 @injectable()
 export class CreateUserService {
@@ -10,11 +10,11 @@ export class CreateUserService {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute(body: Users): Promise<void> {
+  async execute(body: User): Promise<void> {
     const passHash = bcrypt.hashSync(body.password, 10);
-    const userExists = await this.usersRepository.findByEmail(body.email);
-    if (userExists) throw new Error("User already exists!");
+    /* const userExists = await this.usersRepository.findByEmail(body.email);
+    if (userExists) throw new Error("User already exists!"); */
 
-    await this.usersRepository.create({ ...body, password: passHash });
+    await this.usersRepository.createUser({ ...body, password: passHash });
   }
 }
