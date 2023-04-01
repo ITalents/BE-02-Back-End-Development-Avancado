@@ -1,4 +1,4 @@
-const router = require("express").Router();
+/* const router = require("express").Router();
 
 const produtoController = require("../controller/produto.controller");
 const authMiddleware = require("../middleware/auth.middleware");
@@ -16,4 +16,4 @@ router.put("/update/:id", authMiddleware, validaIdParams, validaProduto, produto
 router.delete("/delete/:id", authMiddleware, validaIdParams, produtoController.deleteProductController);
 router.delete("/removeCategoria/:id", authMiddleware, validaIdParams, produtoController.removeCategoriaProdutoController);
 
-module.exports = router;
+module.exports = router; */

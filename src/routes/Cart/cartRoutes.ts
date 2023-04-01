@@ -1,4 +1,4 @@
-const router = require("express").Router();
+/* const router = require("express").Router();
 const authMiddleware = require("../middleware/auth.middleware");
 
 const carrinhoController = require("../controller/carrinho.controller");
@@ -14,4 +14,4 @@ router.put("/update/:id", authMiddleware, validaIdParams, validaCarrinho, carrin
 
 router.delete("/delete/:id", authMiddleware, validaIdParams, carrinhoController.deleteCarrinhoService);
 
-module.exports = router;
+module.exports = router; */

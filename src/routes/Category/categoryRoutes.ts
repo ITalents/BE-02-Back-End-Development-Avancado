@@ -1,4 +1,4 @@
-const router = require("express").Router();
+/* const router = require("express").Router();
 const authMiddleware = require("../middleware/auth.middleware");
 
 const categoriaController = require("../controller/categoria.controller");
@@ -15,3 +15,4 @@ router.put("/update/:id", authMiddleware, validaIdParams, validaCategoria, categ
 router.delete("/delete/:id", authMiddleware, validaIdParams, categoriaController.deleteCategoriaController);
 
 module.exports = router;
+ */
