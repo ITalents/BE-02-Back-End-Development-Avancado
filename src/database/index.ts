@@ -6,6 +6,8 @@ function connectToDatabase() {
   const MONGODB_URI =
     process.env.DATABASE_URL || "mongodb://localhost:27017/marketingplace";
 
+  mongoose.set("strictQuery", true);
+
   mongoose
     .connect(MONGODB_URI)
     .then(() => {

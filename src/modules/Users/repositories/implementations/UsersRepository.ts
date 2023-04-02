@@ -25,7 +25,7 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async updateUser(id: string, data: User): Promise<void> {
-    await UserSchema.findByIdAndUpdate(id, data, { returnDocument: "after" });
+    await UserSchema.findByIdAndUpdate(id, data);
   }
 
   async removeUser(id: string): Promise<void> {
