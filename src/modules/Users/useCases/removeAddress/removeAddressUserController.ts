@@ -7,12 +7,12 @@ class RemoveAddressUserController {
     req: Request,
     res: Response
   ): Promise<Response | NextFunction | undefined> {
-    const { id } = req.params;
-    const body = req.body;
+    const { idAddress } = req.params;
+    const user = res.locals.user;
     const removeAddressUserService = container.resolve(
       RemoveAddressUserService
     );
-    await removeAddressUserService.execute(id, body);
+    await removeAddressUserService.execute(idAddress, user._id);
     return res.sendStatus(204);
   }
 }

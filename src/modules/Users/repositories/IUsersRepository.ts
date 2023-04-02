@@ -10,7 +10,12 @@ export interface IUsersRepository {
   updateUser(id: string, data: User): Promise<void>;
   removeUser(id: string): Promise<void>;
   addNewAddress(userId: string, address: Address): Promise<void>;
-  removeAddress(userId: string, address: Address): Promise<void>;
-  addNewFavoriteProduct(userId: string, produc: Product): Promise<void>;
-  removeFavoriteProduct(userId: string, produc: Product): Promise<void>;
+  findAddressById(addressId: string, userId: string): Promise<Address | null>;
+  removeAddress(addressId: string, userId: string): Promise<void>;
+  addNewFavoriteProduct(userId: string, productId: string): Promise<void>;
+  findFavoriteProductById(
+    productId: string,
+    userId: string
+  ): Promise<Address | null>;
+  removeFavoriteProduct(userId: string, productId: string): Promise<void>;
 }

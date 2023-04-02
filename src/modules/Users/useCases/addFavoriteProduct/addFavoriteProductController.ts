@@ -7,12 +7,12 @@ class AddFavoriteProductController {
     req: Request,
     res: Response
   ): Promise<Response | NextFunction | undefined> {
-    const { id } = req.params;
-    const body = req.body;
+    const { _id } = res.locals.user;
+    const { productId } = req.params;
     const addFavoriteProductService = container.resolve(
       AddFavoriteProductService
     );
-    await addFavoriteProductService.execute(id, body);
+    await addFavoriteProductService.execute(_id, productId);
     return res.sendStatus(201);
   }
 }

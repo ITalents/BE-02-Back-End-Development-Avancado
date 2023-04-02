@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 export class Address {
   _id: ObjectId;
   street: string;
-  number: number;
+  number: string;
   complement: string;
   zipcode: string;
   created_at: Date;
@@ -11,7 +11,7 @@ export class Address {
   constructor(
     _id: ObjectId,
     street: string,
-    number: number,
+    number: string,
     complement: string,
     zipcode: string
   ) {

@@ -7,13 +7,13 @@ class RemoveFavoriteProductController {
     req: Request,
     res: Response
   ): Promise<Response | NextFunction | undefined> {
-    const { id } = req.params;
-    const body = req.body;
+    const { productId } = req.params;
+    const { _id } = res.locals.user;
 
     const removeFavoriteProductService = container.resolve(
       RemoveFavoriteProductService
     );
-    await removeFavoriteProductService.execute(id, body);
+    await removeFavoriteProductService.execute(_id, productId);
     return res.sendStatus(204);
   }
 }

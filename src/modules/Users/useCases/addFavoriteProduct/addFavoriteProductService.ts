@@ -10,12 +10,10 @@ export class AddFavoriteProductService {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute(id: string, data: Product): Promise<void> {
-    if (!data) throw new ConflictError("Body is required");
-
-    const user = this.usersRepository.findById(id);
+  async execute(userId: string, productId: string): Promise<void> {
+    const user = await this.usersRepository.findById(userId);
     if (!user) throw new NotFoundError("User not found!");
 
-    await this.usersRepository.addNewFavoriteProduct(id, data);
+    await this.usersRepository.addNewFavoriteProduct(userId, productId);
   }
 }

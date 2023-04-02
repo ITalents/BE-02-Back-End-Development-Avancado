@@ -11,4 +11,3 @@ export const userSchemmaJoi = joi
     created_at: joi.date(),
     admin: joi.boolean(),
   })
-  .meta({ className: "User" });

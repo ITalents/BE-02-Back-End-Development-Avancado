@@ -7,10 +7,10 @@ class AddAddressUserController {
     req: Request,
     res: Response
   ): Promise<Response | NextFunction | undefined> {
-    const { id } = req.params;
+    const user = res.locals.user;
     const body = req.body;
     const addAddressUserService = container.resolve(AddAddressUserService);
-    await addAddressUserService.execute(id, body);
+    await addAddressUserService.execute(user._id, body);
     return res.sendStatus(201);
   }
 }

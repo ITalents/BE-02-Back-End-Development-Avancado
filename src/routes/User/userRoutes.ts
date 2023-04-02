@@ -12,6 +12,7 @@ import addAddressUserController from "modules/Users/useCases/addAddress/addAddre
 import removeAddressUserController from "modules/Users/useCases/removeAddress/removeAddressUserController";
 import addFavoriteProductController from "modules/Users/useCases/addFavoriteProduct/addFavoriteProductController";
 import removeFavoriteProductController from "modules/Users/useCases/removeFavoriteProduct/removeFavoriteProductController";
+import { addressSchemmaJoi } from "modules/Users/schemas/AddressSchemaJoi";
 
 const userRouter = Router();
 
@@ -30,19 +31,22 @@ userRouter.put("/:id", authMiddleware.handle, updateUserController.handle);
 userRouter.delete("/:id", removeUserController.handle);
 
 userRouter.post(
-  "/add-address/:id",
-  validateSchema.handle(userSchemmaJoi),
+  "/add-address",
+  validateSchema.handle(addressSchemmaJoi),
   addAddressUserController.handle
 );
-userRouter.delete("/remove-address/:id", removeAddressUserController.handle);
+userRouter.delete(
+  "/remove-address/:idAddress",
+  removeAddressUserController.handle
+);
 
 userRouter.post(
-  "/add-favorite-product/:id",
+  "/add-favorite-product/:productId",
   addFavoriteProductController.handle
 );
 
 userRouter.delete(
-  "/removeFavProduct/:id",
+  "/remove-favorite-product/:productId",
   removeFavoriteProductController.handle
 );
 

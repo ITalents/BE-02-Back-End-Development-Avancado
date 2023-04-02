@@ -10,12 +10,13 @@ export class RemoveAddressUserService {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute(id: string, data: Address): Promise<void> {
-    if (!data) throw new ConflictError("Body is required");
-
-    const user = this.usersRepository.findById(id);
+  async execute(addressId: string, userId: string): Promise<void> {
+    const user = await this.usersRepository.findById(userId);
     if (!user) throw new NotFoundError("User not found!");
 
-    await this.usersRepository.removeAddress(id, data);
+    const address = await this.usersRepository.findAddressById(addressId, userId);
+    if (!address) throw new NotFoundError("Address not found!");
+
+    await this.usersRepository.removeAddress(addressId, userId);
   }
 }

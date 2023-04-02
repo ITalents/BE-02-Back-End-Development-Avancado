@@ -48,7 +48,17 @@ export class UsersRepository implements IUsersRepository {
     );
   }
 
-  async removeAddress(userId: string, address: Address): Promise<void> {
+  async findAddressById(
+    addressId: string,
+    userId: string
+  ): Promise<Address | null> {
+    return await UserSchema.findOne(
+      { _id: userId, "addresses._id": addressId },
+      { "addresses.$": 1 }
+    );
+  }
+
+  async removeAddress(addressId: string, userId: string): Promise<void> {
     await UserSchema.findOneAndUpdate(
       {
         _id: userId,
@@ -56,7 +66,7 @@ export class UsersRepository implements IUsersRepository {
       {
         $pull: {
           addresses: {
-            _id: address._id,
+            _id: addressId,
           },
         },
       },
@@ -66,7 +76,10 @@ export class UsersRepository implements IUsersRepository {
     );
   }
 
-  async addNewFavoriteProduct(userId: string, produc: Product): Promise<void> {
+  async addNewFavoriteProduct(
+    userId: string,
+    productId: string
+  ): Promise<void> {
     await UserSchema.findOneAndUpdate(
       {
         _id: userId,
@@ -74,7 +87,7 @@ export class UsersRepository implements IUsersRepository {
       {
         $push: {
           favorite_products: {
-            _id: produc._id,
+            _id: productId,
           },
         },
       },
@@ -84,7 +97,20 @@ export class UsersRepository implements IUsersRepository {
     );
   }
 
-  async removeFavoriteProduct(userId: string, produc: Product): Promise<void> {
+  async findFavoriteProductById(
+    productId: string,
+    userId: string
+  ): Promise<Address | null> {
+    return await UserSchema.findOne(
+      { _id: userId, "favorite_products._id": productId },
+      { "favorite_products.$": 1 }
+    );
+  }
+
+  async removeFavoriteProduct(
+    userId: string,
+    productId: string
+  ): Promise<void> {
     await UserSchema.findOneAndUpdate(
       {
         _id: userId,
@@ -92,7 +118,7 @@ export class UsersRepository implements IUsersRepository {
       {
         $pull: {
           favorite_products: {
-            _id: produc._id,
+            _id: productId,
           },
         },
       },
