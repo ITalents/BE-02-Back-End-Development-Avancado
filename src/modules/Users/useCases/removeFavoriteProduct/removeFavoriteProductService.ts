@@ -1,7 +1,7 @@
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { inject, injectable } from "tsyringe";
-import errors from "errors";
 import { Product } from "modules/Products/entities/Product";
+import { ConflictError, NotFoundError } from "helpers/errors/apiErrors";
 
 @injectable()
 export class RemoveFavoriteProductService {
@@ -11,10 +11,10 @@ export class RemoveFavoriteProductService {
   ) {}
 
   async execute(id: string, data: Product): Promise<void> {
-    if (!data) throw errors.conflictError("Body is required");
+    if (!data) throw new ConflictError("Body is required");
 
     const user = this.usersRepository.findById(id);
-    if (!user) throw errors.notFoundError();
+    if (!user) throw new NotFoundError("User not found!");
 
     await this.usersRepository.removeFavoriteProduct(id, data);
   }

@@ -3,7 +3,7 @@ import { Address } from "../../entities/Address";
 import { User } from "../../entities/User";
 import { IUsersRepository } from "../IUsersRepository";
 import UserSchema from "../../schemas/UserSchema";
-import errors from "../../../../errors";
+import { NotFoundError } from "helpers/errors/apiErrors";
 
 export class UsersRepository implements IUsersRepository {
   async createUser(data: User): Promise<void> {
@@ -12,7 +12,7 @@ export class UsersRepository implements IUsersRepository {
 
   async findByEmail(email: string): Promise<User> {
     const user = await UserSchema.findOne({ email });
-    if (!user) throw errors.notFoundError();
+    if (!user) throw new NotFoundError("User not found!");;
     return user;
   }
 
@@ -22,7 +22,7 @@ export class UsersRepository implements IUsersRepository {
 
   async findById(id: string): Promise<User> {
     const user = await UserSchema.findById(id);
-    if (!user) throw errors.notFoundError();
+    if (!user) throw new NotFoundError("User not found!");
     return user;
   }
 

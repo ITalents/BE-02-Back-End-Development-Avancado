@@ -1,36 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import httpStatus from "http-status";
+import { ApiError } from "../helpers/errors/apiErrors";
 
-export function handleApplicationErrors(
-  err: Error,
+export const errorMiddleware = (
+  error: Error & Partial<ApiError>,
   req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  if (err.name === "ConflictError" || err.name === "DuplicatedEmailError") {
-    return res.status(httpStatus.CONFLICT).send({ message: err.message });
-  }
-
-  if (err.name === "InvalidCredentialsError") {
-    return res.status(httpStatus.UNAUTHORIZED).send({
-      message: err.message,
-    });
-  }
-
-  if (err.name === "UnauthorizedError") {
-    return res.status(httpStatus.UNAUTHORIZED).send({
-      message: err.message,
-    });
-  }
-
-  if (err.name === "NotFoundError") {
-    return res.status(httpStatus.NOT_FOUND).send({
-      message: err.message,
-    });
-  }
-
-  return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
-    error: "InternalServerError",
-    message: "Internal Server Error",
-  });
-}
+  res: Response
+) => {
+  const statusCode = error.statusCode ?? 500;
+  const message = error.statusCode ? error.message : "Internal Server Error";
+  return res.status(statusCode).send({ message });
+};

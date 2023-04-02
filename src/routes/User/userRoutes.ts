@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { validateSchema } from "../../middlewares/schemaValidationMiddleware";
-import { authMiddleware } from "../../middlewares/authMiddleware";
+import authMiddleware from "../../middlewares/authMiddleware";
 import { userSchemmaJoi } from "../../modules/Users/schemas/UserSchemaJoi";
-import { paginationMiddleware } from "middlewares/paginationMiddleware";
+import paginationMiddleware from "middlewares/paginationMiddleware";
 import instance from "../User/instances";
 
 const userRouter = Router();
@@ -13,44 +13,40 @@ userRouter.post(
   instance.createUserController.handle
 );
 
-userRouter.get("/:id", authMiddleware, instance.findByIdUserController.handle);
+userRouter.use(authMiddleware.handle);
+
+userRouter.get("/:id", instance.findByIdUserController.handle);
 userRouter.get(
   "/",
-  authMiddleware,
-  paginationMiddleware,
+  paginationMiddleware.handle,
   instance.findAllUsersController.handle
 );
 
 userRouter.put(
   "/:id",
-  authMiddleware,
-  validateSchema(userSchemmaJoi),
+  authMiddleware.handle,
   instance.updateUserController.handle
 );
-userRouter.delete("/:id", authMiddleware, instance.removeUserController.handle);
+userRouter.delete("/:id", instance.removeUserController.handle);
 
 userRouter.post(
   "/add-address/:id",
-  authMiddleware,
   validateSchema(userSchemmaJoi),
   instance.addAddressController.handle
 );
 
 userRouter.delete(
   "/remove-address/:id",
-  authMiddleware,
   instance.removeAddressController.handle
 );
 
 userRouter.post(
   "/add-favorite-product/:id",
-  authMiddleware,
   instance.addFavoriteProductController.handle
 );
 
 userRouter.delete(
   "/removeFavProduct/:id",
-  authMiddleware,
   instance.removeFavoriteProductController.handle
 );
 
