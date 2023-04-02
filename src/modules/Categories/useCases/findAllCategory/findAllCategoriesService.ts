@@ -12,7 +12,7 @@ export class FindAllCategoriesService {
 
   async execute(limit: number, offset: number): Promise<Category[]> {
     const category = await this.categoriesRepository.findAll(limit, offset);
-    if (!category) throw new NotFoundError("User not found!");
+    if (!category) throw new NotFoundError("Category not found!");
     return category;
   }
 }

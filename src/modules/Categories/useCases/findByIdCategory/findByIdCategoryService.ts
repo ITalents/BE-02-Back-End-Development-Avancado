@@ -6,13 +6,13 @@ import { ICategoriesRepository } from "modules/Categories/repositories/ICategori
 @injectable()
 export class FindByIdCategoryService {
   constructor(
-    @inject("CategoryRepository")
+    @inject("CategoriesRepository")
     private categoriesRepository: ICategoriesRepository
   ) {}
 
   async execute(id: string): Promise<Category> {
     const category = await this.categoriesRepository.findById(id);
-    if (!category) throw new NotFoundError("User not found!");
+    if (!category) throw new NotFoundError("Category not found!");
     return category;
   }
 }

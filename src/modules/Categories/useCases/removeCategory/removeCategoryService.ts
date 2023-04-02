@@ -11,7 +11,7 @@ export class RemoveCategoryService {
 
   async execute(id: string): Promise<void> {
     const category = this.categoriesRepository.findById(id);
-    if (!category) throw new NotFoundError("User not found");
+    if (!category) throw new NotFoundError("Category not found");
     await this.categoriesRepository.removeCategory(id);
   }
 }
