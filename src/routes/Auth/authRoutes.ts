@@ -1,8 +1,8 @@
 import { Router } from "express";
-import instance from "./instaces";
+import signinController from "modules/Auth/useCases/signin/signinController";
 
 const authRouter = Router();
 
-authRouter.post("/signin", instance.signinController.handle);
+authRouter.post("/signin", signinController.handle);
 
 export default authRouter;

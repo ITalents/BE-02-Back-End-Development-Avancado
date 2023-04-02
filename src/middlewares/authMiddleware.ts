@@ -12,30 +12,28 @@ interface ITokenPayload extends JwtPayload {
 class AuthMiddleware {
   handle(req: Request, res: Response, next: NextFunction): void | Response {
     const { authorization } = req.headers;
-    if (!authorization)
-      return res.status(401).send({ message: "Invalid token!" });
+    if (!authorization) throw new UnauthorizedError("Invalid token!");
     const secret = process.env.SECRET as string;
 
     const parts = authorization?.split(" ");
     if (!parts) throw new UnauthorizedError("Invalid token!");
-    if (parts.length !== 2)
-      return res.status(401).send({ message: "Invalid token!" });
+    if (parts.length !== 2) throw new UnauthorizedError("Invalid token!");
 
     const [schema, token] = parts;
     if (!/^Bearer$/i.test(schema))
-      return res.status(401).send({ message: "Invalid token!" });
+      throw new UnauthorizedError("Invalid token!");
 
     jwt.verify(token, secret, async (err, decoded) => {
-      if (err) return res.status(401).send({ message: "Invalid token!" });
-      if (!decoded) return res.status(401).send({ message: "Invalid token!" });
+      if (err) throw new UnauthorizedError("Invalid token!");
+      if (!decoded) throw new UnauthorizedError("Invalid token!");
 
       const { id } = decoded as ITokenPayload;
 
       try {
         const findByIdUserService = container.resolve(FindByIdUserService);
         const user = await findByIdUserService.execute(id);
-
-        if (!user) return res.status(404).send({ message: "User not found!" });
+  
+        if (!user) throw new NotFoundError("User not found!");
 
         res.locals.user = user;
         return next();

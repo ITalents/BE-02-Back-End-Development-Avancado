@@ -10,9 +10,8 @@ export class UsersRepository implements IUsersRepository {
     await UserSchema.create(data);
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User | null> {
     const user = await UserSchema.findOne({ email });
-    if (!user) throw new NotFoundError("User not found!");;
     return user;
   }
 
@@ -20,9 +19,8 @@ export class UsersRepository implements IUsersRepository {
     return UserSchema.find().limit(limit).skip(offset);
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<User | null> {
     const user = await UserSchema.findById(id);
-    if (!user) throw new NotFoundError("User not found!");
     return user;
   }
 

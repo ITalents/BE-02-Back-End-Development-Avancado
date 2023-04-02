@@ -3,12 +3,13 @@ import "reflect-metadata";
 import "dotenv/config";
 import "./database";
 
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import "./helpers/container";
 import router from "routes";
 import connectToDatabase from "./database";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
+import { ApiError } from "helpers/errors/apiErrors";
 
 const app = express();
 connectToDatabase();

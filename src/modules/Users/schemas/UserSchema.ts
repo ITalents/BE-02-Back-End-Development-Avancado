@@ -20,7 +20,6 @@ const UserSchema = new Schema<User>({
     {
       _id: {
         type: Schema.Types.ObjectId,
-        unique: true,
         ref: "products",
       },
       created_at: { type: Date, default: Date.now() },

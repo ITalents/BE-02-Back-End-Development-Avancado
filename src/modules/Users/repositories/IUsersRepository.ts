@@ -4,9 +4,9 @@ import { User } from "../entities/User";
 
 export interface IUsersRepository {
   createUser(data: User): Promise<void>;
-  findByEmail(email: string): Promise<User>;
+  findByEmail(email: string): Promise<User | null>;
   findAll(limit: number, offset: number): Promise<User[]>;
-  findById(id: string): Promise<User>;
+  findById(id: string): Promise<User | null>;
   updateUser(id: string, data: User): Promise<void>;
   removeUser(id: string): Promise<void>;
   addNewAddress(userId: string, address: Address): Promise<void>;
