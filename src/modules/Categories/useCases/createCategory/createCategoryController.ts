@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateCategoryService } from "./createCategoryService";
 

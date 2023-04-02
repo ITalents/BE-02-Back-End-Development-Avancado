@@ -11,8 +11,8 @@ export class FindAllCategoriesService {
   ) {}
 
   async execute(limit: number, offset: number): Promise<Category[]> {
-    const user = await this.categoriesRepository.findAll(limit, offset);
-    if (!user) throw new NotFoundError("User not found!");
-    return user;
+    const category = await this.categoriesRepository.findAll(limit, offset);
+    if (!category) throw new NotFoundError("User not found!");
+    return category;
   }
 }

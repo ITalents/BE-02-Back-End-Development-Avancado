@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateSchema } from "../../middlewares/schemaValidationMiddleware";
+import validateSchema from "../../middlewares/schemaValidationMiddleware";
 import authMiddleware from "../../middlewares/authMiddleware";
 import { userSchemmaJoi } from "../../modules/Users/schemas/UserSchemaJoi";
 import paginationMiddleware from "middlewares/paginationMiddleware";
@@ -17,7 +17,7 @@ const userRouter = Router();
 
 userRouter.post(
   "/",
-  validateSchema(userSchemmaJoi),
+  validateSchema.handle(userSchemmaJoi),
   createUserController.handle
 );
 
@@ -31,7 +31,7 @@ userRouter.delete("/:id", removeUserController.handle);
 
 userRouter.post(
   "/add-address/:id",
-  validateSchema(userSchemmaJoi),
+  validateSchema.handle(userSchemmaJoi),
   addAddressUserController.handle
 );
 userRouter.delete("/remove-address/:id", removeAddressUserController.handle);

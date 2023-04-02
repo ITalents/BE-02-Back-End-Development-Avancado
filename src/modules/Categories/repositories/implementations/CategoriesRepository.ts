@@ -1,5 +1,5 @@
 import { Category } from "modules/Categories/entities/Category";
-import CategorySchema from "modules/Categories/schemas/CategorySchema";
+import CategorySchema from "../../schemas/CategorySchema";
 import { ICategoriesRepository } from "../ICategoriesRepository";
 
 export class CategoriesRepository implements ICategoriesRepository {

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { FindAllCategoriesService } from "./findAllUsersService";
+import { FindAllCategoriesService } from "./findAllCategoriesService";
 
 class FindAllCategoriesController {
   async handle(req: Request, res: Response): Promise<Response> {
@@ -10,8 +10,8 @@ class FindAllCategoriesController {
     const findAllCategoriesService = container.resolve(
       FindAllCategoriesService
     );
-    const user = await findAllCategoriesService.execute(limit, offset);
-    return res.send(user);
+    const category = await findAllCategoriesService.execute(limit, offset);
+    return res.send(category);
   }
 }
 

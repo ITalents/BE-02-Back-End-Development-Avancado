@@ -1,0 +1,17 @@
+import { inject, injectable } from "tsyringe";
+import { NotFoundError } from "helpers/errors/apiErrors";
+import { ICategoriesRepository } from "modules/Categories/repositories/ICategoriesRepository";
+
+@injectable()
+export class RemoveCategoryService {
+  constructor(
+    @inject("CategoriesRepository")
+    private categoriesRepository: ICategoriesRepository
+  ) {}
+
+  async execute(id: string): Promise<void> {
+    const category = this.categoriesRepository.findById(id);
+    if (!category) throw new NotFoundError("User not found");
+    await this.categoriesRepository.removeCategory(id);
+  }
+}
