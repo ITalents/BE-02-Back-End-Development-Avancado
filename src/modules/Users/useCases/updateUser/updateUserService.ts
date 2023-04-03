@@ -1,7 +1,9 @@
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { inject, injectable } from "tsyringe";
 import { User } from "../../entities/User";
-import { ConflictError, NotFoundError } from "helpers/errors/apiErrors";
+import { NotFoundError } from "helpers/errors/apiErrors";
+
+import bcrypt from "bcrypt";
 
 @injectable()
 export class UpdateUserService {
@@ -11,9 +13,17 @@ export class UpdateUserService {
   ) {}
 
   async execute(id: string, data: User): Promise<void> {
-    if (!data) throw new ConflictError("Body is required");
-    const user = this.usersRepository.findById(id);
-    if (!user) throw new NotFoundError("User not found!");
-    await this.usersRepository.updateUser(id, data);
+    const user = await this.usersRepository.findById(id);
+    if (!user) throw new NotFoundError("User not found");
+    if (data.password) {
+      const hashPassword = await bcrypt.hash(data.password, 10);
+
+      await this.usersRepository.updateUser(id, {
+        ...data,
+        password: hashPassword,
+      });
+    } else {
+      await this.usersRepository.updateUser(id, data);
+    }
   }
 }

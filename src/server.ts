@@ -6,11 +6,11 @@ import express from "express";
 import cors from "cors";
 import "./helpers/container";
 import router from "routes";
-import connectToDatabase from "./database";
+import ConnectToMongoDb from "database";
 import errorMiddleware from "./middlewares/errorMiddleware";
 
 const app = express();
-connectToDatabase();
+ConnectToMongoDb.execute();
 
 app.use(express.json());
 app.use(cors());

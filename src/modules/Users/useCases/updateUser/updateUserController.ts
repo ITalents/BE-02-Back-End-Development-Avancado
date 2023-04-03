@@ -7,10 +7,10 @@ class UpdateUserController {
     req: Request,
     res: Response
   ): Promise<Response | NextFunction | undefined> {
-    const { id } = req.params;
-    const body = req.body;
+    const { _id } = res.locals.user;
+    const data = req.body;
     const updateUserService = container.resolve(UpdateUserService);
-    await updateUserService.execute(id, body);
+    await updateUserService.execute(_id, data);
     return res.sendStatus(204);
   }
 }

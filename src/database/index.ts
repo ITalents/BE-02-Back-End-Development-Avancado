@@ -1,21 +1,17 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
 
-function connectToDatabase() {
-  const MONGODB_URI =
-    process.env.DATABASE_URL || "mongodb://localhost:27017/marketingplace";
+class ConnectToMongoDb {
+  async execute() {
+    const mongoUrl = process.env.DATABASE_URL as string;
 
-  mongoose.set("strictQuery", true);
-
-  mongoose
-    .connect(MONGODB_URI)
-    .then(() => {
-      console.log("MONGO DB CONECTADO");
-    })
-    .catch((err) => {
-      return console.log(`Erro na conexao com o banco: ${err}`);
-    });
+    try {
+      await mongoose.connect(mongoUrl);
+      console.log("MONGODB CONECTADO");
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }
 }
 
-export default connectToDatabase;
+export default new ConnectToMongoDb();
