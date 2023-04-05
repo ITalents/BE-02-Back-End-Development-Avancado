@@ -1,19 +1,58 @@
-/* const router = require("express").Router();
+import { Router } from "express";
+import authMiddleware from "middlewares/authMiddleware";
+import schemaValidationMiddleware from "middlewares/schemaValidationMiddleware";
+import { productSchemmaJoi } from "modules/Products/schemas/ProductSchemaJoi";
 
-const produtoController = require("../controller/produto.controller");
-const authMiddleware = require("../middleware/auth.middleware");
-const { validaProduto,  validaIdParams, valida_IdBody } = require("../middleware/validacao.middleware");
-const paginacao = require("../middleware/paginacao.middleware");
+const productRouter = Router();
 
-router.get("/find/:id", authMiddleware, validaIdParams, produtoController.findProductByIdController);
-router.get("/findAll", authMiddleware, paginacao, produtoController.findAllProductscontroller);
+productRouter.post(
+  "/",
+  authMiddleware.handle,
+  schemaValidationMiddleware.handle(productSchemmaJoi),
+  
+);
 
-router.post("/create", authMiddleware, validaProduto, produtoController.createProductController);
-router.post("/addCategoria/:id", authMiddleware, validaIdParams, valida_IdBody, produtoController.addCategoriaProdutoController);
+/* router.get(
+  "/findAll",
+  authMiddleware,
+  paginacao,
+  produtoController.findAllProductscontroller
+);
 
-router.put("/update/:id", authMiddleware, validaIdParams, validaProduto, produtoController.updateProductController);
+router.get(
+  "/find/:id",
+  authMiddleware,
+  validaIdParams,
+  produtoController.findProductByIdController
+);
 
-router.delete("/delete/:id", authMiddleware, validaIdParams, produtoController.deleteProductController);
-router.delete("/removeCategoria/:id", authMiddleware, validaIdParams, produtoController.removeCategoriaProdutoController);
+router.post(
+  "/addCategoria/:id",
+  authMiddleware,
+  validaIdParams,
+  valida_IdBody,
+  produtoController.addCategoriaProdutoController
+);
 
-module.exports = router; */
+router.put(
+  "/update/:id",
+  authMiddleware,
+  validaIdParams,
+  validaProduto,
+  produtoController.updateProductController
+);
+
+router.delete(
+  "/delete/:id",
+  authMiddleware,
+  validaIdParams,
+  produtoController.deleteProductController
+);
+router.delete(
+  "/removeCategoria/:id",
+  authMiddleware,
+  validaIdParams,
+  produtoController.removeCategoriaProdutoController
+); */
+
+export default productRouter;
