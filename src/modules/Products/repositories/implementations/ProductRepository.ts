@@ -1,3 +1,4 @@
+import { Category } from "modules/Categories/entities/Category";
 import { Product } from "modules/Products/entities/Product";
 import ProductSchema from "modules/Products/schemas/ProductSchema";
 import { IProductRepository } from "../IProductRepository";
@@ -22,5 +23,34 @@ export class ProductRepository implements IProductRepository {
 
   async remove(id: string): Promise<void> {
     await ProductSchema.findByIdAndRemove(id);
+  }
+
+  async addCategory(productId: string, categoryId: string): Promise<void> {
+    await ProductSchema.findOneAndUpdate(
+      {
+        _id: productId,
+      },
+      {
+        $push: {
+          categories: {
+            _id: categoryId,
+          },
+        },
+      }
+    );
+  }
+  async removeCategory(productId: string, categoryId: string): Promise<void> {
+    await ProductSchema.findOneAndUpdate(
+      {
+        _id: productId,
+      },
+      {
+        $pull: {
+          categories: {
+            _id: categoryId,
+          },
+        },
+      }
+    );
   }
 }
