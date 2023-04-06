@@ -12,7 +12,7 @@ export class UpdateCategoryService {
 
   async execute(id: string, data: Category): Promise<void> {
     if (!data) throw new ConflictError("Body is required");
-    const category = this.categoriesRepository.findById(id);
+    const category = await this.categoriesRepository.findById(id);
     if (!category) throw new NotFoundError("Category not found!");
     await this.categoriesRepository.updateCategory(id, data);
   }

@@ -11,7 +11,7 @@ export class UpdateCartService {
   ) {}
 
   async execute(id: string, data: Cart): Promise<void> {
-    const cart = this.cartRepository.findById(id);
+    const cart = await this.cartRepository.findById(id);
     if (!cart) throw new NotFoundError("Category not found!");
     await this.cartRepository.update(id, data);
   }

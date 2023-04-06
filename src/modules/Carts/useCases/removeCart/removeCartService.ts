@@ -10,7 +10,7 @@ export class RemoveCartService {
   ) {}
 
   async execute(id: string): Promise<void> {
-    const cart = this.cartRepository.findById(id);
+    const cart = await this.cartRepository.findById(id);
     if (!cart) throw new NotFoundError("Cart not found");
     await this.cartRepository.remove(id);
   }

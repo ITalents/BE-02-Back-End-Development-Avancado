@@ -11,7 +11,7 @@ export class RemoveOrderService {
   ) {}
 
   async execute(id: string): Promise<void> {
-    const order = this.orderRepository.findById(id);
+    const order = await this.orderRepository.findById(id);
     if (!order) throw new NotFoundError("Order not found");
     await this.orderRepository.remove(id);
   }

@@ -11,7 +11,7 @@ export class UpdateStatusOrderService {
 
   async execute(id: string): Promise<void> {
     const order = await this.orderRepository.findById(id);
-    if (!order) throw new NotFoundError("Category not found!");
+    if (!order) throw new NotFoundError("Order not found!");
     await this.orderRepository.updateStatus(id, order.concluded);
   }
 }
