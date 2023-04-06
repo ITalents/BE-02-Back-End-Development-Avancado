@@ -13,8 +13,12 @@ import removeAddressUserController from "modules/Users/useCases/removeAddress/re
 import addFavoriteProductController from "modules/Users/useCases/addFavoriteProduct/addFavoriteProductController";
 import removeFavoriteProductController from "modules/Users/useCases/removeFavoriteProduct/removeFavoriteProductController";
 import { addressSchemmaJoi } from "modules/Users/schemas/AddressSchemaJoi";
+import updateUserAvatarController from "modules/Users/useCases/updateUserAvatar/updateUserAvatarController";
+import multer from "multer";
+import uploadConfig from "../../helpers/upload";
 
 const userRouter = Router();
+const uploadAvatar = multer(uploadConfig.upload("./tmp/avatar"));
 
 userRouter.post(
   "/",
@@ -48,6 +52,12 @@ userRouter.post(
 userRouter.delete(
   "/remove-favorite-product/:productId",
   removeFavoriteProductController.handle
+);
+
+userRouter.patch(
+  "/avatar",
+  uploadAvatar.single("avatar"),
+  updateUserAvatarController.handle
 );
 
 export default userRouter;

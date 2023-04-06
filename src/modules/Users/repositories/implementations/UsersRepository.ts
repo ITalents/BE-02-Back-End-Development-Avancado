@@ -25,15 +25,15 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async updateUser(id: string, data: User): Promise<void> {
-    await UserSchema.findByIdAndUpdate(id, data);
+    await UserSchema.updateOne({ _id: id }, { $set: data });
   }
 
   async removeUser(id: string): Promise<void> {
-    await UserSchema.findByIdAndRemove(id);
+    await UserSchema.deleteOne({ _id: id });
   }
 
   async addNewAddress(userId: string, address: Address): Promise<void> {
-    await UserSchema.findOneAndUpdate(
+    await UserSchema.updateOne(
       {
         _id: userId,
       },
@@ -41,9 +41,6 @@ export class UsersRepository implements IUsersRepository {
         $push: {
           addresses: address,
         },
-      },
-      {
-        rawResult: true,
       }
     );
   }
@@ -59,7 +56,7 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async removeAddress(addressId: string, userId: string): Promise<void> {
-    await UserSchema.findOneAndUpdate(
+    await UserSchema.updateOne(
       {
         _id: userId,
       },
@@ -69,9 +66,6 @@ export class UsersRepository implements IUsersRepository {
             _id: addressId,
           },
         },
-      },
-      {
-        rawResult: true,
       }
     );
   }
@@ -80,7 +74,7 @@ export class UsersRepository implements IUsersRepository {
     userId: string,
     productId: string
   ): Promise<void> {
-    await UserSchema.findOneAndUpdate(
+    await UserSchema.updateOne(
       {
         _id: userId,
       },
@@ -90,9 +84,6 @@ export class UsersRepository implements IUsersRepository {
             _id: productId,
           },
         },
-      },
-      {
-        rawResult: true,
       }
     );
   }
@@ -111,7 +102,7 @@ export class UsersRepository implements IUsersRepository {
     userId: string,
     productId: string
   ): Promise<void> {
-    await UserSchema.findOneAndUpdate(
+    await UserSchema.updateOne(
       {
         _id: userId,
       },
@@ -121,10 +112,11 @@ export class UsersRepository implements IUsersRepository {
             _id: productId,
           },
         },
-      },
-      {
-        rawResult: true,
       }
     );
+  }
+
+  async updateAvatar(id: string, avatar: string): Promise<void> {
+    await UserSchema.updateOne({ _id: id }, { $set: { image: avatar } });
   }
 }

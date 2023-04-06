@@ -18,4 +18,5 @@ export interface IUsersRepository {
     userId: string
   ): Promise<Address | null>;
   removeFavoriteProduct(userId: string, productId: string): Promise<void>;
+  updateAvatar(id: string, avatar: string): Promise<void>;
 }
