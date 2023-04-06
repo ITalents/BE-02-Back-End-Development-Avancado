@@ -8,6 +8,13 @@ export class ProductRepository implements IProductRepository {
     await ProductSchema.create(data);
   }
 
+  async findByName(name: string): Promise<Product | null> {
+    return await ProductSchema.findOne({ name });
+  }
+  async findByBarCode(barcode: number): Promise<Product | null> {
+    return await ProductSchema.findOne({ bar_code: barcode });
+  }
+
   async findAll(limit: number, offset: number): Promise<Product[]> {
     return ProductSchema.find().limit(limit).skip(offset);
   }
@@ -18,7 +25,7 @@ export class ProductRepository implements IProductRepository {
   }
 
   async update(id: string, data: Product): Promise<void> {
-    await ProductSchema.findByIdAndUpdate(id, data);
+    await ProductSchema.updateOne({ _id: id }, { $set: data });
   }
 
   async remove(id: string): Promise<void> {

@@ -10,8 +10,8 @@ export class RemoveProductService {
   ) {}
 
   async execute(id: string): Promise<void> {
-    const product = this.productRepository.findById(id);
-    if (!product) throw new NotFoundError("User not found");
+    const product = await this.productRepository.findById(id);
+    if (!product) throw new NotFoundError("Product not found");
     await this.productRepository.remove(id);
   }
 }

@@ -3,10 +3,7 @@ import { container } from "tsyringe";
 import { AddFavoriteProductService } from "./addFavoriteProductService";
 
 class AddFavoriteProductController {
-  async handle(
-    req: Request,
-    res: Response
-  ): Promise<Response | NextFunction | undefined> {
+  async handle(req: Request, res: Response): Promise<Response | undefined> {
     const { _id } = res.locals.user;
     const { productId } = req.params;
     const addFavoriteProductService = container.resolve(

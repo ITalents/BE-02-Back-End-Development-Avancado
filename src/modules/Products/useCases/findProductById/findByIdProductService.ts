@@ -12,7 +12,7 @@ export class FindByIdProductService {
 
   async execute(id: string): Promise<Product> {
     const product = await this.productRepository.findById(id);
-    if (!product) throw new NotFoundError("User not found!");
+    if (!product) throw new NotFoundError("Product not found!");
     return product;
   }
 }

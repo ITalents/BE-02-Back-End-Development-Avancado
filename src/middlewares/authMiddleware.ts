@@ -24,21 +24,20 @@ class AuthMiddleware {
       throw new UnauthorizedError("Invalid token!");
 
     jwt.verify(token, secret, async (err, decoded) => {
-      if (err) throw new UnauthorizedError("Invalid token!");
-      if (!decoded) throw new UnauthorizedError("Invalid token!");
-
-      const { id } = decoded as ITokenPayload;
-
       try {
+        if (err) throw new UnauthorizedError("Invalid token!");
+        if (!decoded) throw new UnauthorizedError("Invalid token!");
+
+        const { id } = decoded as ITokenPayload;
         const findByIdUserService = container.resolve(FindByIdUserService);
         const user = await findByIdUserService.execute(id);
-  
+
         if (!user) throw new NotFoundError("User not found!");
 
         res.locals.user = user;
         return next();
       } catch (err: any) {
-        return res.status(500).send(err.message);
+        return next(err);
       }
     });
   }

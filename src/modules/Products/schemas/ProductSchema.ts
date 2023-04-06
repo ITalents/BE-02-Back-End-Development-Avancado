@@ -11,8 +11,6 @@ const ProductSchema = new Schema<Product>({
     {
       _id: {
         type: Schema.Types.ObjectId,
-        required: true,
-        unique: true,
         ref: "categories",
       },
       create_at: { type: Date, required: true, default: Date.now() },

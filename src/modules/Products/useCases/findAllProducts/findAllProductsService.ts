@@ -13,7 +13,7 @@ export class FindAllProductService {
 
   async execute(limit: number, offset: number): Promise<Product[]> {
     const products = await this.productRepository.findAll(limit, offset);
-    if (!products.length) throw new NotFoundError("User not found!");
+    if (!products.length) throw new NotFoundError("Products not found!");
     return products;
   }
 }

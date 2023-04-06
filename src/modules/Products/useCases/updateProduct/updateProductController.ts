@@ -4,10 +4,10 @@ import { UpdateProductService } from "./updateProductService";
 
 class UpdateProductController {
   async handle(req: Request, res: Response): Promise<Response | undefined> {
-    const { _id } = res.locals.user;
+    const { id } = req.params;
     const data = req.body;
     const updateProductService = container.resolve(UpdateProductService);
-    await updateProductService.execute(_id, data);
+    await updateProductService.execute(id, data);
     return res.sendStatus(204);
   }
 }

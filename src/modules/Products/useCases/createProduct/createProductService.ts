@@ -11,6 +11,17 @@ export class CreateProductService {
   ) {}
 
   async execute(body: Product): Promise<void> {
+    const productNameExists = await this.productRepository.findByName(
+      body.name
+    );
+    if (productNameExists) throw new ConflictError("Product already exists!");
+
+    const productBarCodeExists = await this.productRepository.findByBarCode(
+      body.bar_code
+    );
+    if (productBarCodeExists)
+      throw new ConflictError("Product already exists!");
+
     await this.productRepository.create(body);
   }
 }

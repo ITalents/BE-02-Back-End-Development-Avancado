@@ -26,13 +26,9 @@ productRouter.get("/", findAllProductsController.handle);
 
 productRouter.get("/:id", findByIdProductController.handle);
 
-productRouter.put(
-  "/",
-  schemaValidationMiddleware.handle(productSchemmaJoi),
-  updateProductController.handle
-);
+productRouter.patch("/:id", updateProductController.handle);
 
-productRouter.delete("/", removeProductController.handle);
+productRouter.delete("/:id", removeProductController.handle);
 
 productRouter.post(
   "/add-category/:categoryId/:productId",
