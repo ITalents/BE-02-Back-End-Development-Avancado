@@ -11,7 +11,7 @@ const OrderSchema = new Schema<Order>({
   total_price: { type: Number, required: true },
   freight: { type: Number, required: true },
   user_id: { type: Schema.Types.ObjectId, required: true, ref: "users" },
-  concluded: { type: Boolean, required: true },
+  concluded: { type: Boolean, default: false },
   created_at: { type: Date, required: true, default: Date.now() },
 });
 

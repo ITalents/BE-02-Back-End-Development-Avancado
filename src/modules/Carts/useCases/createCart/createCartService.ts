@@ -1,5 +1,6 @@
 import { Cart } from "modules/Carts/entities/Cart";
 import { ICartRepository } from "modules/Carts/repositories/ICartRepository";
+import { ObjectId } from "mongodb";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -9,7 +10,8 @@ export class CreateCartService {
     private cartRepository: ICartRepository
   ) {}
 
-  async execute(data: Cart): Promise<void> {
-    await this.cartRepository.create(data);
+  async execute(_id: ObjectId, data: Cart): Promise<void> {
+    const cart = { ...data, user_id: _id } as Cart;
+    await this.cartRepository.create(cart);
   }
 }
