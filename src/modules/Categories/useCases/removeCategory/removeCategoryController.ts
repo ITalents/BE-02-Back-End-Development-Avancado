@@ -6,7 +6,7 @@ class RemoveCategoryController {
   async handle(
     req: Request,
     res: Response
-  ): Promise<Response | NextFunction | undefined> {
+  ): Promise<Response | undefined> {
     const { id } = req.params;
     const updateCategoryService = container.resolve(RemoveCategoryService);
     await updateCategoryService.execute(id);

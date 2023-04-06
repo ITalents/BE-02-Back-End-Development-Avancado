@@ -1,17 +1,26 @@
-/* const router = require("express").Router();
-const authMiddleware = require("../middleware/auth.middleware");
+import { Router } from "express";
+import authMiddleware from "middlewares/authMiddleware";
+import paginationMiddleware from "middlewares/paginationMiddleware";
+import schemaValidationMiddleware from "middlewares/schemaValidationMiddleware";
+import { cartSchemmaJoi } from "modules/Carts/schemas/CartSchemaJoi";
 
-const carrinhoController = require("../controller/carrinho.controller");
-const { validaCarrinho,  validaIdParams, validaProdutosCarrinhoPedido } = require("../middleware/validacao.middleware");
-const paginacao = require("../middleware/paginacao.middleware");
+import createCartController from "modules/Carts/useCases/createCart/createCartController";
+import findAllCartsController from "modules/Carts/useCases/findAllCarts/findAllCartsController";
+import findByIdCartController from "modules/Carts/useCases/findCartById/findByIdCartController";
+import removeCartController from "modules/Carts/useCases/removeCart/removeCartController";
+import updateCartController from "modules/Carts/useCases/updateCart/updateCartController";
 
-router.get("/find/:id", authMiddleware, validaIdParams, carrinhoController.findCarrinhoByIdController);
-router.get("/findAll", authMiddleware, paginacao, carrinhoController.findAllCarrinhosService);
+const cartRouter = Router();
 
-router.post("/create", authMiddleware, validaProdutosCarrinhoPedido, validaCarrinho, carrinhoController.createCarrinhoService);
+cartRouter.use(authMiddleware.handle);
+cartRouter.post(
+  "/",
+  schemaValidationMiddleware.handle(cartSchemmaJoi),
+  createCartController.handle
+);
+cartRouter.get("/", paginationMiddleware.handle, findAllCartsController.handle);
+cartRouter.get("/:id", findByIdCartController.handle);
+cartRouter.patch("/:id", updateCartController.handle);
+cartRouter.delete("/:id", removeCartController.handle);
 
-router.put("/update/:id", authMiddleware, validaIdParams, validaCarrinho, carrinhoController.updateCarrinhoService);
-
-router.delete("/delete/:id", authMiddleware, validaIdParams, carrinhoController.deleteCarrinhoService);
-
-module.exports = router; */
+export default cartRouter;

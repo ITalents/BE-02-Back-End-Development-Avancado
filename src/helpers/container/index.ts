@@ -1,5 +1,7 @@
 import { IAuthRepository } from "modules/Auth/repositories/IAuthRepositories";
 import { AuthRepository } from "modules/Auth/repositories/implementations/AuthRepositories";
+import { ICartRepository } from "modules/Carts/repositories/ICartRepository";
+import { CartRepository } from "modules/Carts/repositories/implementations/CartRepository";
 import { ICategoriesRepository } from "modules/Categories/repositories/ICategoriesRepository";
 import { CategoriesRepository } from "modules/Categories/repositories/implementations/CategoriesRepository";
 import { ProductRepository } from "modules/Products/repositories/implementations/ProductRepository";
@@ -24,3 +26,5 @@ container.registerSingleton<IProductRepository>(
   "ProductRepository",
   ProductRepository
 );
+
+container.registerSingleton<ICartRepository>("CartRepository", CartRepository);
