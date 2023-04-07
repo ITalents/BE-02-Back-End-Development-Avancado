@@ -16,6 +16,7 @@ import { addressSchemmaJoi } from "modules/Users/schemas/AddressSchemaJoi";
 import updateUserAvatarController from "modules/Users/useCases/updateUserAvatar/updateUserAvatarController";
 import multer from "multer";
 import uploadConfig from "../../helpers/upload";
+import findUserAvatarController from "@/modules/Users/useCases/findUserAvatar/findUserAvatarController";
 
 const userRouter = Router();
 const uploadAvatar = multer(uploadConfig.upload("./tmp/avatar"));
@@ -28,7 +29,10 @@ userRouter.post(
 
 userRouter.use(authMiddleware.handle);
 
+userRouter.get("/avatar/:id", findUserAvatarController.handle);
+
 userRouter.get("/:id", findByIdUserController.handle);
+
 userRouter.get("/", paginationMiddleware.handle, findAllUsersController.handle);
 
 userRouter.put("/:id", authMiddleware.handle, updateUserController.handle);

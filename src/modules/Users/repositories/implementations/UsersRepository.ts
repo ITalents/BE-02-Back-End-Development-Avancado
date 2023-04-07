@@ -16,11 +16,11 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findAll(limit: number, offset: number): Promise<User[]> {
-    return UserSchema.find().limit(limit).skip(offset);
+    return UserSchema.find().limit(limit).skip(offset).select(["-password", "-__v"]);
   }
 
   async findById(id: string): Promise<User | null> {
-    const user = await UserSchema.findById(id);
+    const user = await UserSchema.findById(id).select(["-password", "-__v"]);
     return user;
   }
 

@@ -15,7 +15,7 @@ export class UpdateUserAvatarService {
     if (!user) throw new NotFoundError("User not found");
 
     if (user.image) {
-      await deleteFile(`./src/tmp/avatar/${user.image}`);
+      await deleteFile(user.image);
     }
 
     await this.usersRepository.updateAvatar(id, avatar);

@@ -30,7 +30,8 @@
     "@types/multer": "^1.4.7",
     "@types/node": "^18.14.0",
     "tsx": "^3.12.3",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "typescript-transform-paths": "^3.4.6"
   },
   "dependencies": {
     "@types/uuid": "^9.0.1",
