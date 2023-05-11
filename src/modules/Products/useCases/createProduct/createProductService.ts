@@ -14,7 +14,7 @@ export class CreateProductService {
     const productNameExists = await this.productRepository.findByName(
       body.name
     );
-    if (productNameExists) throw new ConflictError("Product already exists!");
+    if (productNameExists !== null) throw new ConflictError("Product already exists!");
 
     const productBarCodeExists = await this.productRepository.findByBarCode(
       body.bar_code

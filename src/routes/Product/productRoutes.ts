@@ -11,13 +11,17 @@ import findByIdProductController from "modules/Products/useCases/findProductById
 import removeCategoryController from "modules/Products/useCases/removeCategory/removeCategoryController";
 import removeProductController from "modules/Products/useCases/removeProduct/removeProductController";
 import updateProductController from "modules/Products/useCases/updateProduct/updateProductController";
+import multer from "multer";
+import uploadConfig from "../../helpers/upload";
 
 const productRouter = Router();
+const uploadProductImage = multer(uploadConfig.upload("./tmp/productImage"));
 
 productRouter.use(authMiddleware.handle);
 
 productRouter.post(
   "/",
+  uploadProductImage.single("image"),
   schemaValidationMiddleware.handle(productSchemmaJoi),
   createProductController.handle
 );

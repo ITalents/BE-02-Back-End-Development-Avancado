@@ -5,8 +5,8 @@ import { RemoveOrderService } from "./removeOrderService";
 class RemoveOrderController {
   async handle(req: Request, res: Response): Promise<Response | undefined> {
     const { id } = req.params;
-    const updateOrderService = container.resolve(RemoveOrderService);
-    await updateOrderService.execute(id);
+    const removeOrderService = container.resolve(RemoveOrderService);
+    await removeOrderService.execute(id);
     return res.sendStatus(204);
   }
 }

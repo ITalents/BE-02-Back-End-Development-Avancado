@@ -3,11 +3,7 @@ import { container } from "tsyringe";
 import { CreateUserService } from "./createUserService";
 
 class CreateUserController {
-  async handle(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | undefined> {
+  async handle(req: Request, res: Response): Promise<Response | undefined> {
     const body = req.body;
     const createUserService = container.resolve(CreateUserService);
     await createUserService.execute(body);
