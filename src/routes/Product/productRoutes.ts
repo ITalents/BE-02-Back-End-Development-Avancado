@@ -30,7 +30,11 @@ productRouter.get("/", findAllProductsController.handle);
 
 productRouter.get("/:id", findByIdProductController.handle);
 
-productRouter.patch("/:id", updateProductController.handle);
+productRouter.patch(
+  "/:id",
+  uploadProductImage.single("image"),
+  updateProductController.handle
+);
 
 productRouter.delete("/:id", removeProductController.handle);
 
