@@ -1,9 +1,7 @@
-import { Product } from "../../../Products/entities/Product";
 import { Address } from "../../entities/Address";
 import { User } from "../../entities/User";
 import { IUsersRepository } from "../IUsersRepository";
 import UserSchema from "../../schemas/UserSchema";
-import { NotFoundError } from "helpers/errors/apiErrors";
 
 export class UsersRepository implements IUsersRepository {
   async createUser(data: User): Promise<void> {
@@ -16,7 +14,10 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findAll(limit: number, offset: number): Promise<User[]> {
-    return UserSchema.find().limit(limit).skip(offset).select(["-password", "-__v"]);
+    return UserSchema.find()
+      .limit(limit)
+      .skip(offset)
+      .select(["-password", "-__v"]);
   }
 
   async findById(id: string): Promise<User | null> {

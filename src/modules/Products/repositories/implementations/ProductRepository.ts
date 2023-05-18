@@ -1,6 +1,5 @@
-import { Category } from "modules/Categories/entities/Category";
-import { Product } from "modules/Products/entities/Product";
-import ProductSchema from "modules/Products/schemas/ProductSchema";
+import { Product } from "@/modules/Products/entities/Product";
+import ProductSchema from "@/modules/Products/schemas/ProductSchema";
 import { IProductRepository } from "../IProductRepository";
 
 export class ProductRepository implements IProductRepository {

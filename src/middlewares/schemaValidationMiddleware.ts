@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ConflictError } from "helpers/errors/apiErrors";
+import { ConflictError } from "@/helpers/errors/apiErrors";
 
 class ValidateSchemma {
   handle(schema: any) {

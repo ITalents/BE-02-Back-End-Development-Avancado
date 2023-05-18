@@ -1,5 +1,5 @@
-import { Order } from "modules/Orders/entities/Order";
-import OrderSchema from "modules/Orders/schemas/OrderSchema";
+import { Order } from "@/modules/Orders/entities/Order";
+import OrderSchema from "@/modules/Orders/schemas/OrderSchema";
 import { IOrderRepository } from "../IOrderRepository";
 
 export class OrderRepository implements IOrderRepository {

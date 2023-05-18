@@ -1,7 +1,7 @@
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { inject, injectable } from "tsyringe";
-import { NotFoundError } from "helpers/errors/apiErrors";
-import { deleteFile } from "helpers/upload/file";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
+import { deleteFile } from "@/helpers/upload/file";
 
 @injectable()
 export class UpdateUserAvatarService {

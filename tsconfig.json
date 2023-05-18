@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "module": "es2022",
+    "module": "CommonJS", 
+    "target": "ES2022",
     "moduleResolution": "node",
     "baseUrl": "src/",
     "outDir": "./dist",
@@ -11,6 +11,7 @@
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "rootDirs": ["src", "tests"],
     "paths": {
       "@/*": ["*"]
     },
@@ -22,5 +23,6 @@
   },
   "ts-node": {
     "esm": true
-  }
+  },
+  "include": ["src", "tests"]
 }

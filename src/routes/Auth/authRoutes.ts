@@ -1,5 +1,5 @@
 import { Router } from "express";
-import signinController from "modules/Auth/useCases/signin/signinController";
+import signinController from "@/modules/Auth/useCases/signin/signinController";
 
 const authRouter = Router();
 

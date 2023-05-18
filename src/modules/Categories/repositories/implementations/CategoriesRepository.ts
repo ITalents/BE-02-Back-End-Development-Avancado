@@ -1,4 +1,4 @@
-import { Category } from "modules/Categories/entities/Category";
+import { Category } from "@/modules/Categories/entities/Category";
 import CategorySchema from "../../schemas/CategorySchema";
 import { ICategoriesRepository } from "../ICategoriesRepository";
 

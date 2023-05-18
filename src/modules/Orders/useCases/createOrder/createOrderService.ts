@@ -1,5 +1,5 @@
-import { Order } from "modules/Orders/entities/Order";
-import { IOrderRepository } from "modules/Orders/repositories/IOrderRepository";
+import { Order } from "@/modules/Orders/entities/Order";
+import { IOrderRepository } from "@/modules/Orders/repositories/IOrderRepository";
 import { ObjectId } from "mongodb";
 import { inject, injectable } from "tsyringe";
 

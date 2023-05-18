@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { ConflictError, NotFoundError } from "helpers/errors/apiErrors";
-import { ICategoriesRepository } from "modules/Categories/repositories/ICategoriesRepository";
-import { Category } from "modules/Categories/entities/Category";
+import { ConflictError, NotFoundError } from "@/helpers/errors/apiErrors";
+import { ICategoriesRepository } from "@/modules/Categories/repositories/ICategoriesRepository";
+import { Category } from "@/modules/Categories/entities/Category";
 
 @injectable()
 export class UpdateCategoryService {

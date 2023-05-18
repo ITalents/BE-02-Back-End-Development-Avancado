@@ -1,19 +1,18 @@
 import { Router } from "express";
 
-import authMiddleware from "middlewares/authMiddleware";
-import schemaValidationMiddleware from "middlewares/schemaValidationMiddleware";
-import { productSchemmaJoi } from "modules/Products/schemas/ProductSchemaJoi";
+import authMiddleware from "@/middlewares/authMiddleware";
+import schemaValidationMiddleware from "@/middlewares/schemaValidationMiddleware";
 
-import addCategoryController from "modules/Products/useCases/addCategory/addCategoryController";
-import createProductController from "modules/Products/useCases/createProduct/createProductController";
-import findAllProductsController from "modules/Products/useCases/findAllProducts/findAllProductsController";
-import findByIdProductController from "modules/Products/useCases/findProductById/findByIdProductController";
-import removeCategoryController from "modules/Products/useCases/removeCategory/removeCategoryController";
-import removeProductController from "modules/Products/useCases/removeProduct/removeProductController";
-import updateProductController from "modules/Products/useCases/updateProduct/updateProductController";
+import { productSchemmaJoi } from "@/modules/Products/schemas/ProductSchemaJoi";
+import addCategoryController from "@/modules/Products/useCases/addCategory/addCategoryController";
+import createProductController from "@/modules/Products/useCases/createProduct/createProductController";
+import findAllProductsController from "@/modules/Products/useCases/findAllProducts/findAllProductsController";
+import findByIdProductController from "@/modules/Products/useCases/findProductById/findByIdProductController";
+import removeCategoryController from "@/modules/Products/useCases/removeCategory/removeCategoryController";
+import removeProductController from "@/modules/Products/useCases/removeProduct/removeProductController";
+import updateProductController from "@/modules/Products/useCases/updateProduct/updateProductController";
 import multer from "multer";
-import uploadConfig from "../../helpers/upload";
-
+import uploadConfig from "@/helpers/upload";
 const productRouter = Router();
 const uploadProductImage = multer(uploadConfig.upload("./tmp/productImage"));
 

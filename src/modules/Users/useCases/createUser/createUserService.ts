@@ -2,7 +2,7 @@ import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { inject, injectable } from "tsyringe";
 import bcrypt from "bcrypt";
 import { User } from "../../entities/User";
-import { ConflictError } from "helpers/errors/apiErrors";
+import { ConflictError } from "@/helpers/errors/apiErrors";
 
 @injectable()
 export class CreateUserService {

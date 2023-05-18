@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ApiError } from "helpers/errors/apiErrors";
+import { ApiError } from "@/helpers/errors/apiErrors";
 
 class paginationMiddleware {
   handle(

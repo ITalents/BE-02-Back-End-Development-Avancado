@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 import { IAuthRepository } from "../IAuthRepositories";
 import "dotenv/config";
-import { User } from "modules/Users/entities/User";
-import UserSchema from "modules/Users/schemas/UserSchema";
+import { User } from "@/modules/Users/entities/User";
+import UserSchema from "@/modules/Users/schemas/UserSchema";
 import { ObjectId } from "mongodb";
-import { NotFoundError } from "helpers/errors/apiErrors";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
 
 export class AuthRepository implements IAuthRepository {
   async findUserByEmail(email: string): Promise<User> {

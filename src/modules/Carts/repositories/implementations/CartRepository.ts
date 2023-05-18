@@ -1,5 +1,5 @@
-import { Cart } from "modules/Carts/entities/Cart";
-import CartSchema from "modules/Carts/schemas/CartSchema";
+import { Cart } from "@/modules/Carts/entities/Cart";
+import CartSchema from "@/modules/Carts/schemas/CartSchema";
 import { ICartRepository } from "../ICartRepository";
 
 export class CartRepository implements ICartRepository {

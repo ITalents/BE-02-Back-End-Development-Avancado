@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { NotFoundError } from "helpers/errors/apiErrors";
-import { ICartRepository } from "modules/Carts/repositories/ICartRepository";
-import { Cart } from "modules/Carts/entities/Cart";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
+import { ICartRepository } from "@/modules/Carts/repositories/ICartRepository";
+import { Cart } from "@/modules/Carts/entities/Cart";
 
 @injectable()
 export class FindByIdCartService {

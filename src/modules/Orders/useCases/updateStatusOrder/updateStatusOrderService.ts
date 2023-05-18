@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { NotFoundError } from "helpers/errors/apiErrors";
-import { IOrderRepository } from "modules/Orders/repositories/IOrderRepository";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
+import { IOrderRepository } from "@/modules/Orders/repositories/IOrderRepository";
 
 @injectable()
 export class UpdateStatusOrderService {

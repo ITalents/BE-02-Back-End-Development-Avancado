@@ -1,6 +1,6 @@
-import { NotFoundError } from "helpers/errors/apiErrors";
-import { Category } from "modules/Categories/entities/Category";
-import { ICategoriesRepository } from "modules/Categories/repositories/ICategoriesRepository";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
+import { Category } from "@/modules/Categories/entities/Category";
+import { ICategoriesRepository } from "@/modules/Categories/repositories/ICategoriesRepository";
 import { inject, injectable } from "tsyringe";
 
 @injectable()

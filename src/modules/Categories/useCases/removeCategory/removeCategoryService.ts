@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { NotFoundError } from "helpers/errors/apiErrors";
-import { ICategoriesRepository } from "modules/Categories/repositories/ICategoriesRepository";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
+import { ICategoriesRepository } from "@/modules/Categories/repositories/ICategoriesRepository";
 
 @injectable()
 export class RemoveCategoryService {

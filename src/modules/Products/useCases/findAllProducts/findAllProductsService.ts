@@ -1,8 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import bcrypt from "bcrypt";
-import { NotFoundError } from "helpers/errors/apiErrors";
-import { IProductRepository } from "modules/Products/repositories/IProductRepository";
-import { Product } from "modules/Products/entities/Product";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
+import { IProductRepository } from "@/modules/Products/repositories/IProductRepository";
+import { Product } from "@/modules/Products/entities/Product";
 
 @injectable()
 export class FindAllProductService {

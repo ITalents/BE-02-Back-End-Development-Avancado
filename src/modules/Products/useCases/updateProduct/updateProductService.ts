@@ -1,7 +1,7 @@
 import { IProductRepository } from "../../repositories/IProductRepository";
 import { inject, injectable } from "tsyringe";
-import { ConflictError, NotFoundError } from "helpers/errors/apiErrors";
-import { Product } from "modules/Products/entities/Product";
+import { ConflictError, NotFoundError } from "@/helpers/errors/apiErrors";
+import { Product } from "@/modules/Products/entities/Product";
 
 @injectable()
 export class UpdateProductService {

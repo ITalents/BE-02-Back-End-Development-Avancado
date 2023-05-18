@@ -1,7 +1,6 @@
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { inject, injectable } from "tsyringe";
-import { Address } from "modules/Users/entities/Address";
-import { ConflictError, NotFoundError } from "helpers/errors/apiErrors";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
 
 @injectable()
 export class RemoveAddressUserService {

@@ -2,7 +2,6 @@ import { inject, injectable } from "tsyringe";
 import { User } from "@/modules/Users/entities/User";
 import { NotFoundError } from "@/helpers/errors/apiErrors";
 import { IUsersRepository } from "@/modules/Users/repositories/IUsersRepository";
-import { dirname, join, resolve } from "path";
 
 @injectable()
 export class FindUserAvatarService {

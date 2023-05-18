@@ -1,5 +1,5 @@
-import { Cart } from "modules/Carts/entities/Cart";
-import { ICartRepository } from "modules/Carts/repositories/ICartRepository";
+import { Cart } from "@/modules/Carts/entities/Cart";
+import { ICartRepository } from "@/modules/Carts/repositories/ICartRepository";
 import { ObjectId } from "mongodb";
 import { inject, injectable } from "tsyringe";
 

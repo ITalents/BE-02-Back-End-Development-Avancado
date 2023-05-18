@@ -1,6 +1,6 @@
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { inject, injectable } from "tsyringe";
-import { NotFoundError } from "helpers/errors/apiErrors";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
 
 @injectable()
 export class RemoveUserService {

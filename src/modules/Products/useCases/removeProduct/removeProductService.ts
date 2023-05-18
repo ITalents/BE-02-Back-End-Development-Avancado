@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { NotFoundError } from "helpers/errors/apiErrors";
-import { IProductRepository } from "modules/Products/repositories/IProductRepository";
+import { NotFoundError } from "@/helpers/errors/apiErrors";
+import { IProductRepository } from "@/modules/Products/repositories/IProductRepository";
 
 @injectable()
 export class RemoveProductService {

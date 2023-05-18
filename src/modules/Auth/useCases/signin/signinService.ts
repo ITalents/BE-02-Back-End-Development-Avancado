@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { IAuthRepository } from "modules/Auth/repositories/IAuthRepositories";
-import { Auth } from "modules/Auth/entities/Auth";
-import { ConflictError, NotFoundError } from "helpers/errors/apiErrors";
+import { IAuthRepository } from "@/modules/Auth/repositories/IAuthRepositories";
+import { Auth } from "@/modules/Auth/entities/Auth";
+import { ConflictError, NotFoundError } from "@/helpers/errors/apiErrors";
 
 @injectable()
 export class SigninService {
