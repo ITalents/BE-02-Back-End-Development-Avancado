@@ -30,8 +30,6 @@ userRouter.post(
 
 userRouter.use(authMiddleware.handle);
 
-userRouter.get("/avatar/:id", findUserAvatarController.handle);
-
 userRouter.get("/:id", findByIdUserController.handle);
 
 userRouter.get("/", paginationMiddleware.handle, findAllUsersController.handle);
@@ -58,6 +56,8 @@ userRouter.delete(
   "/remove-favorite-product/:productId",
   removeFavoriteProductController.handle
 );
+
+userRouter.get("/avatar/:id", findUserAvatarController.handle);
 
 userRouter.patch(
   "/avatar",
