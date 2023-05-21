@@ -1,6 +1,11 @@
 import supertest from "supertest";
 import app, { close, init } from "../../src/app";
 import { cleanDatabase } from "../utils/helpers";
+import {
+  createUserDB,
+  invalidSchemaUser,
+  newUser,
+} from "../factories/users.factories";
 
 const server = supertest(app);
 
@@ -21,15 +26,41 @@ afterEach(async () => {
 });
 
 describe("POST /users", () => {
-  it("Should create user", async () => {
-    const result = await server.post("/users").send({
-      name: "Thiago Lima",
-      email: "thiagovlima@email.com",
-      password: "1234",
-      image: "Teste",
-      admin: true,
-    });
+  it("Should create user and return status code 201", async () => {
+    const user = newUser();
+    const result = await server.post("/users").send(user);
     expect(result.statusCode).toBe(201);
-    //expect(1).toBe(1);
   });
+
+  it("Should return status code 409 if user email exists", async () => {
+    const user = createUserDB();
+    const result = await server.post("/users").send(user);
+    expect(result.statusCode).toBe(409);
+  });
+
+  it("Should return status code 409 if user schema incorrect", async () => {
+    const user = invalidSchemaUser();
+    const result = await server.post("/users").send(user);
+    expect(result.statusCode).toBe(409);
+  });
+});
+
+describe("GET /users", () => {
+  /* it("Should return status code 401 if token is invalid", async () => {
+    const result = await server.get("/users");
+    expect(result.statusCode).toBe(401);
+  }); */
+
+ /*  it("Should find all users and return status code 200", async () => {
+    const result = await server.get("/users");
+    expect(result.statusCode).toBe(201);
+  });
+
+  it("Should return status code 409 if user email exists", async () => {
+    
+  });
+
+  it("Should return status code 409 if user schema incorrect", async () => {
+   
+  }); */
 });

@@ -8,7 +8,6 @@ class paginationMiddleware {
     res: Response,
     next: NextFunction
   ) {
-    console.log(err)
     try {
       let { limit, offset } = req.query;
 
