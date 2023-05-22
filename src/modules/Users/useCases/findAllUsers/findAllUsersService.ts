@@ -12,7 +12,6 @@ export class FindAllUsersService {
 
   async execute(limit: number, offset: number): Promise<User[]> {
     const user = await this.usersRepository.findAll(limit, offset);
-    if (!user) throw new NotFoundError("User not found!");
     return user;
   }
 }

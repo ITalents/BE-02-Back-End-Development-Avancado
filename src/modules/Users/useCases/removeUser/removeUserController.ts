@@ -7,9 +7,9 @@ class RemoveUserController {
     req: Request,
     res: Response
   ): Promise<Response | NextFunction | undefined> {
-    const { id } = req.params;
+    const { _id } = res.locals.user;
     const updateUserService = container.resolve(RemoveUserService);
-    await updateUserService.execute(id);
+    await updateUserService.execute(_id);
     return res.sendStatus(204);
   }
 }

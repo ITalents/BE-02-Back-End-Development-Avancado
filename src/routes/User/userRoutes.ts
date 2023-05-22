@@ -34,8 +34,8 @@ userRouter.get("/:id", findByIdUserController.handle);
 
 userRouter.get("/", paginationMiddleware.handle, findAllUsersController.handle);
 
-userRouter.put("/:id", authMiddleware.handle, updateUserController.handle);
-userRouter.delete("/:id", removeUserController.handle);
+userRouter.put("/update", authMiddleware.handle, updateUserController.handle);
+userRouter.delete("/delete", removeUserController.handle);
 
 userRouter.post(
   "/add-address",

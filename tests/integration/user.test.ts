@@ -1,10 +1,16 @@
 import supertest from "supertest";
 import app, { close, init } from "../../src/app";
-import { cleanDatabase } from "../utils/helpers";
+import { cleanDatabase, createObjectId, generateToken } from "../utils/helpers";
 import {
+  addAddressDb,
   createUserDB,
+  deleteUserDB,
+  getUserById,
   invalidSchemaUser,
+  newAddress,
   newUser,
+  updatedUserWithPassword,
+  updatedUserWithoutPassword,
 } from "../factories/users.factories";
 
 const server = supertest(app);
@@ -18,10 +24,6 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  await cleanDatabase();
-});
-
-afterEach(async () => {
   await cleanDatabase();
 });
 
@@ -46,21 +48,240 @@ describe("POST /users", () => {
 });
 
 describe("GET /users", () => {
-  /* it("Should return status code 401 if token is invalid", async () => {
+  it("should respond with status 401 if no token is given", async () => {
     const result = await server.get("/users");
     expect(result.statusCode).toBe(401);
-  }); */
+  });
 
- /*  it("Should find all users and return status code 200", async () => {
-    const result = await server.get("/users");
+  it("should respond with status 401 if given token is not valid", async () => {
+    const token = "invalidtoken";
+    const result = await server
+      .get("/users")
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("Should find all users and return status code 200", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    const result = await server
+      .get("/users")
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(200);
+    expect(result.body).toBeInstanceOf(Array);
+  });
+});
+
+describe("GET /users/:id", () => {
+  it("should respond with status 401 if no token is given", async () => {
+    const result = await server.get("/users/1");
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("should respond with status 401 if given token is not valid", async () => {
+    const token = "invalidtoken";
+    const result = await server
+      .get("/users/1")
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("Should find one user and return status code 200", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    const result = await server
+      .get(`/users/${user._id}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(200);
+    expect(result.body).toEqual({
+      _id: expect.any(String),
+      name: user.name,
+      email: user.email,
+      image: user.image,
+      admin: user.admin,
+      addresses: expect.any(Array),
+      favorite_products: expect.any(Array),
+      created_at: expect.any(String),
+    });
+  });
+
+  it("Should return status code 404 if not found user", async () => {
+    const id = createObjectId();
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    const result = await server
+      .get(`/users/${id}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(404);
+  });
+});
+
+describe("PUT /users/update", () => {
+  it("should respond with status 401 if no token is given", async () => {
+    const result = await server.put("/users/update");
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("should respond with status 401 if given token is not valid", async () => {
+    const token = "invalidtoken";
+    const result = await server
+      .put("/users/update")
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("Should update one user without password and return status code 204", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    const result = await server
+      .put(`/users/update`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(updatedUserWithoutPassword());
+    expect(result.statusCode).toBe(204);
+  });
+
+  it("Should update one user with password and return status code 204", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    const result = await server
+      .put(`/users/update`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(updatedUserWithPassword());
+    expect(result.statusCode).toBe(204);
+  });
+
+  it("Should return status code 404 if not found user", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    await deleteUserDB(user);
+    const result = await server
+      .put(`/users/update`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(404);
+  });
+});
+
+describe("DELETE /users/delete", () => {
+  it("should respond with status 401 if no token is given", async () => {
+    const result = await server.delete("/users/delete");
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("should respond with status 401 if given token is not valid", async () => {
+    const token = "invalidtoken";
+    const result = await server
+      .delete("/users/delete")
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("Should delete one user and return status code 204", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    const result = await server
+      .delete(`/users/delete`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(updatedUserWithoutPassword());
+    expect(result.statusCode).toBe(204);
+  });
+
+  it("Should return status code 404 if not found user", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    await deleteUserDB(user);
+    const result = await server
+      .delete(`/users/delete`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(404);
+  });
+});
+
+describe("POST /users/add-address", () => {
+  it("should respond with status 401 if no token is given", async () => {
+    const result = await server.post("/users/add-address");
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("should respond with status 401 if given token is not valid", async () => {
+    const token = "invalidtoken";
+    const result = await server
+      .post("/users/add-address")
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("Should add address and return status code 201", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    const address = newAddress();
+    const result = await server
+      .post(`/users/add-address`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(address);
     expect(result.statusCode).toBe(201);
   });
 
-  it("Should return status code 409 if user email exists", async () => {
-    
+  it("Should return status code 404 if not found user", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    await deleteUserDB(user);
+    const result = await server
+      .post(`/users/add-address`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(404);
+  });
+});
+
+describe("DELETE /users/remove-address/:id", () => {
+  it("should respond with status 401 if no token is given", async () => {
+    const result = await server.delete("/users/remove-address/1");
+    expect(result.statusCode).toBe(401);
   });
 
-  it("Should return status code 409 if user schema incorrect", async () => {
-   
-  }); */
+  it("should respond with status 401 if given token is not valid", async () => {
+    const token = "invalidtoken";
+    const result = await server
+      .delete("/users/remove-address/1")
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("Should remove address and return status code 204", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    await addAddressDb(user);
+    const userWithAddress = await getUserById(user);
+    const addressId = userWithAddress?.addresses[0]._id;
+    const result = await server
+      .delete(`/users/remove-address/${addressId}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(204);
+  });
+
+  it("Should return status code 404 if not found user", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    await addAddressDb(user);
+    const userWithAddress = await getUserById(user);
+    const addressId = userWithAddress?.addresses[0]._id;
+    await deleteUserDB(user);
+
+    const result = await server
+      .delete(`/users/remove-address/${addressId}`)
+      .set("Authorization", `Bearer ${token}`);
+    console.log(result);
+    expect(result.statusCode).toBe(404);
+    expect(result.body.message).toBe("User not found!");
+  });
+
+  it("Should return status code 404 if not found address", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+
+    const result = await server
+      .delete(`/users/remove-address/${createObjectId()}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(404);
+    expect(result.body.message).toBe("Address not found!");
+  });
 });
