@@ -11,7 +11,7 @@ export class AddAddressUserService {
   ) {}
 
   async execute(id: string, data: Address): Promise<void> {
-    if (!data) throw new ConflictError("Body is required");
+    //if (!data) throw new ConflictError("Body is required");
 
     const user = this.usersRepository.findById(id);
     if (!user) throw new NotFoundError("User not found!");
