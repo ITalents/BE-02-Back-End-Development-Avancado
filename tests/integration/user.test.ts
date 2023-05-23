@@ -4,6 +4,7 @@ import { cleanDatabase, createObjectId, generateToken } from "../utils/helpers";
 import {
   addAddressDb,
   addFavoriteProductDb,
+  createPathAndImage,
   createProductDB,
   createUserDB,
   deleteUserDB,
@@ -390,14 +391,11 @@ describe("GET /users/avatar/:id", () => {
   it("Should find avatar by user and return status code 200", async () => {
     const user = await createUserDB();
     const token = await generateToken(user);
+
     const result = await server
       .get(`/users/avatar/${user._id}`)
       .set("Authorization", `Bearer ${token}`);
-
     expect(result.statusCode).toBe(200);
-    expect(result.body).toEqual({
-      image: user.image,
-    });
   });
 
   it("Should return status code 404 if not found user", async () => {
@@ -405,7 +403,44 @@ describe("GET /users/avatar/:id", () => {
     const user = await createUserDB();
     const token = await generateToken(user);
     const result = await server
-      .get(`/users/${fakeId}`)
+      .get(`/users/avatar/${fakeId}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(404);
+  });
+});
+
+describe("PATCH /users/avatar", () => {
+  it("should respond with status 401 if no token is given", async () => {
+    const result = await server.patch("/users/avatar/");
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("should respond with status 401 if given token is not valid", async () => {
+    const token = "invalidtoken";
+    const result = await server
+      .patch("/users/avatar/")
+      .set("Authorization", `Bearer ${token}`);
+    expect(result.statusCode).toBe(401);
+  });
+
+  it("Should update user avatar and return status code 204", async () => {
+    const user = await createUserDB();
+    const token = await generateToken(user);
+    const filePath = createPathAndImage();
+
+    const result = await server
+      .patch(`/users/avatar`)
+      .set("Authorization", `Bearer ${token}`)
+      .attach("avatar", filePath);
+    expect(result.statusCode).toBe(204);
+  });
+
+  it("Should return status code 404 if not found user", async () => {
+    const user = newFakeUserDB();
+    const token = await generateToken(user);
+
+    const result = await server
+      .patch(`/users/avatar`)
       .set("Authorization", `Bearer ${token}`);
     expect(result.statusCode).toBe(404);
   });

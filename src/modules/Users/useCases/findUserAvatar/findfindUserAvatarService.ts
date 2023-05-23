@@ -10,8 +10,8 @@ export class FindUserAvatarService {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute(_id: string): Promise<User> {
-    let user = await this.usersRepository.findById(_id);
+  async execute(id: string): Promise<User> {
+    const user = await this.usersRepository.findById(id);
     if (!user) throw new NotFoundError("User not found!");
 
     return user;

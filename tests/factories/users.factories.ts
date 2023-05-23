@@ -4,13 +4,29 @@ import { createObjectId } from "../utils/helpers";
 import ProductSchema from "@/modules/Products/schemas/ProductSchema";
 import { Product } from "@/modules/Products/entities/Product";
 import faker from "faker";
+import { dirname, join } from "path";
+import fs from "fs";
+
+export function createPathAndImage() {
+  const __dirname = dirname(new URL(import.meta.url).pathname);
+  const folderPath = join(__dirname, "images");
+  if (!fs.existsSync(folderPath)) {
+    fs.mkdirSync(folderPath);
+  }
+  const imageName = "testImage.jpg"
+  const imagePath = join(folderPath, imageName);
+  const imageContent = "";
+  fs.writeFileSync(imagePath, imageContent);
+
+  return imagePath;
+}
 
 export function newUser() {
   const user = {
     name: faker.name.findName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    image: faker.image.imageUrl(),
+    image: createPathAndImage(),
     admin: true,
   };
 
@@ -23,7 +39,7 @@ export function newFakeUserDB() {
     name: faker.name.findName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    image: faker.image.imageUrl(),
+    image: createPathAndImage(),
     admin: true,
     addresses: [],
     favorite_products: [],
@@ -38,7 +54,7 @@ export function invalidSchemaUser() {
     names: faker.name.findName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    image: faker.image.imageUrl(),
+    image: createPathAndImage(),
     admin: true,
   };
 }
@@ -48,7 +64,7 @@ export async function createUserDB() {
     name: faker.name.findName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    image: faker.image.imageUrl(),
+    image: createPathAndImage(),
     admin: true,
   });
 
@@ -63,7 +79,7 @@ export function updatedUserWithoutPassword() {
   return {
     name: faker.name.findName(),
     email: faker.internet.email(),
-    image: faker.image.imageUrl(),
+    image: createPathAndImage(),
     admin: true,
   };
 }
@@ -71,7 +87,7 @@ export function updatedUserWithoutPassword() {
 export function newAddress() {
   return {
     street: faker.address.streetName(),
-    number: faker.datatype.number({ min: 1, max: 999 }),
+    number: faker.datatype.number({ min: 1, max: 999 }).toString(),
     complement: faker.random.alphaNumeric(3),
     zipcode: faker.address.zipCode(),
   };
@@ -99,7 +115,7 @@ export async function createProductDB() {
     name: faker.commerce.productName(),
     description: faker.lorem.sentence(),
     unit_price: faker.datatype.number({ min: 100, max: 10000 }),
-    image: faker.image.imageUrl(),
+    image: createPathAndImage(),
     bar_code: faker.datatype.number({ min: 100, max: 9999 }),
   });
 

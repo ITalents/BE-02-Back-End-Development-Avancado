@@ -4,10 +4,13 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { ObjectId } from "mongodb";
 import ProductSchema from "@/modules/Products/schemas/ProductSchema";
+import fs from "fs";
+import { createPathAndImage } from "../factories/users.factories";
 
 export async function cleanDatabase() {
   await UserSchema.deleteMany({});
   await ProductSchema.deleteMany({});
+  fs.unlink(createPathAndImage(), () => {});
 }
 
 export async function generateToken(user: User) {
