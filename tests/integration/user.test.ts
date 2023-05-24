@@ -28,7 +28,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await cleanDatabase();
-});
+}, 100000);
 
 describe("POST /users", () => {
   it("Should create user and return status code 201", async () => {
