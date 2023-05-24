@@ -36,3 +36,5 @@ container.registerSingleton<IOrderRepository>(
   "OrderRepository",
   OrderRepository
 );
+
+container.registerSingleton<IAuthRepository>("AuthRepository", AuthRepository);

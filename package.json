@@ -30,6 +30,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/multer": "^1.4.7",
     "@types/node": "^18.16.13",
+    "@types/query-string": "^6.3.0",
     "@types/supertest": "^2.0.12",
     "cross-env": "^7.0.3",
     "jest": "^29.5.0",
@@ -43,6 +44,7 @@
   "dependencies": {
     "@types/faker": "^5.5.9",
     "@types/uuid": "^9.0.1",
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dirname-filename-esm": "^1.1.1",
@@ -55,6 +57,7 @@
     "mongodb": "^5.1.0",
     "mongoose": "^6.6.5",
     "multer": "^1.4.5-lts.1",
+    "query-string": "^8.1.0",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.7.0",
     "uuid": "^9.0.0"
