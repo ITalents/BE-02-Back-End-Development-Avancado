@@ -26,8 +26,11 @@ class AuthMiddleware {
     jwt.verify(token, secret, async (err, decoded) => {
       try {
         if (err) {
-          res.locals.token = token;
-          return next();
+          if (token.startsWith("g")) {
+            res.locals.token = token;
+            return next();
+          }
+          throw new UnauthorizedError("Invalid token!");
         }
         if (!decoded) throw new UnauthorizedError("Invalid token!");
 
