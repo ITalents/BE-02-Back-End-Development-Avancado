@@ -6,7 +6,7 @@ export interface IAuthRepository {
   findUserByEmail(email: string): Promise<User>;
   generateToken(userId: ObjectId): string;
   getTokenGitHub(
-    GITHUB_ACCESS_TOKEN_URL: string,
+    urlGithubAccessToken: string,
     params: IParamsGithubToken
   ): Promise<string | (string | null)[] | null>;
 }

@@ -18,6 +18,7 @@ import updateUserAvatarController from "@/modules/Users/useCases/updateUserAvata
 import multer from "multer";
 import uploadConfig from "@/helpers/upload";
 import findUserAvatarController from "@/modules/Users/useCases/findUserAvatar/findUserAvatarController";
+import findUserGithubController from "@/modules/Users/useCases/findUserGithub/findUserGithubController";
 
 const userRouter = Router();
 const uploadAvatar = multer(uploadConfig.upload("./tmp/avatar"));
@@ -64,5 +65,7 @@ userRouter.patch(
   uploadAvatar.single("avatar"),
   updateUserAvatarController.handle
 );
+
+userRouter.get("/github/signin", findUserGithubController.handle);
 
 export default userRouter;

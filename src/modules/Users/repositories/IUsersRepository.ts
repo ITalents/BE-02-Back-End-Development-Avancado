@@ -1,6 +1,7 @@
 import { Product } from "../../Products/entities/Product";
 import { Address } from "../entities/Address";
 import { User } from "../entities/User";
+import { IUserGihtub } from "../schemas/UserSchemaGithub";
 
 export interface IUsersRepository {
   createUser(data: User): Promise<void>;
@@ -19,4 +20,5 @@ export interface IUsersRepository {
   ): Promise<Address | null>;
   removeFavoriteProduct(userId: string, productId: string): Promise<void>;
   updateAvatar(id: string, avatar: string): Promise<void>;
+  findUserGitHub(token: string): Promise<IUserGihtub>;
 }

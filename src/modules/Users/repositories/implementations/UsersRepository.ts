@@ -2,6 +2,8 @@ import { Address } from "../../entities/Address";
 import { User } from "../../entities/User";
 import { IUsersRepository } from "../IUsersRepository";
 import UserSchema from "../../schemas/UserSchema";
+import axios from "axios";
+import { IUserGihtub } from "../../schemas/UserSchemaGithub";
 
 export class UsersRepository implements IUsersRepository {
   async createUser(data: User): Promise<void> {
@@ -119,5 +121,15 @@ export class UsersRepository implements IUsersRepository {
 
   async updateAvatar(id: string, avatar: string): Promise<void> {
     await UserSchema.updateOne({ _id: id }, { $set: { image: avatar } });
+  }
+
+  async findUserGitHub(token: string): Promise<IUserGihtub> {
+    const response = await axios.get("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
   }
 }

@@ -25,7 +25,10 @@ class AuthMiddleware {
 
     jwt.verify(token, secret, async (err, decoded) => {
       try {
-        if (err) throw new UnauthorizedError("Invalid token!");
+        if (err) {
+          res.locals.token = token;
+          return next();
+        }
         if (!decoded) throw new UnauthorizedError("Invalid token!");
 
         const { id } = decoded as ITokenPayload;
