@@ -8,7 +8,7 @@ module.exports = {
     "@/(.*)": "<rootDir>/src/$1",
     "@tests/(.*)": "<rootDir>/tests/$1",
   },
-  //testMatch: ["<rootDir>/tests/**/*.(test|spec).ts"],
+  testMatch: ["<rootDir>/tests/**/*.(test|spec).ts"],
   extensionsToTreatAsEsm: [".ts"],
   globals: {
     "ts-jest": {
