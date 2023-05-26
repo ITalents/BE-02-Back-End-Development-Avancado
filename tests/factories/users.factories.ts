@@ -3,7 +3,7 @@ import UserSchema from "@/modules/Users/schemas/UserSchema";
 import { createObjectId } from "../utils/helpers";
 import ProductSchema from "@/modules/Products/schemas/ProductSchema";
 import { Product } from "@/modules/Products/entities/Product";
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import { dirname, join } from "path";
 import fs from "fs";
 
@@ -13,7 +13,7 @@ export function createPathAndImage() {
   if (!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath);
   }
-  const imageName = "testImage.jpg"
+  const imageName = "testImage.jpg";
   const imagePath = join(folderPath, imageName);
   const imageContent = "";
   fs.writeFileSync(imagePath, imageContent);
@@ -23,11 +23,11 @@ export function createPathAndImage() {
 
 export function newUser() {
   const user = {
-    name: faker.name.findName(),
+    name: faker.person.fullName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     image: createPathAndImage(),
-    admin: true,
+    admin: faker.datatype.boolean(),
   };
 
   return user;
@@ -36,7 +36,7 @@ export function newUser() {
 export function newFakeUserDB() {
   const user: User = {
     _id: createObjectId(),
-    name: faker.name.findName(),
+    name: faker.person.fullName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     image: createPathAndImage(),
@@ -51,7 +51,7 @@ export function newFakeUserDB() {
 
 export function invalidSchemaUser() {
   return {
-    names: faker.name.findName(),
+    names: faker.person.fullName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     image: createPathAndImage(),
@@ -61,7 +61,7 @@ export function invalidSchemaUser() {
 
 export async function createUserDB() {
   const user = await UserSchema.create({
-    name: faker.name.findName(),
+    name: faker.person.fullName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     image: createPathAndImage(),
@@ -77,7 +77,7 @@ export async function deleteUserDB(user: User) {
 
 export function updatedUserWithoutPassword() {
   return {
-    name: faker.name.findName(),
+    name: faker.person.fullName(),
     email: faker.internet.email(),
     image: createPathAndImage(),
     admin: true,
