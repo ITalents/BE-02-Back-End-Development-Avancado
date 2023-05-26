@@ -15,4 +15,5 @@ module.exports = {
       useESM: true,
     },
   },
+  restoreMocks: true,
 };

@@ -11,8 +11,6 @@ export class SigninService {
   ) {}
 
   async execute(data: Auth): Promise<string> {
-    if (!data) throw new ConflictError("Body is required");
-
     const user = await this.authRepository.findUserByEmail(data.email);
     if (!user) throw new NotFoundError("User not found");
 
