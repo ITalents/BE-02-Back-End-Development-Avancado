@@ -86,10 +86,10 @@ export function updatedUserWithoutPassword() {
 
 export function newAddress() {
   return {
-    street: faker.address.streetName(),
-    number: faker.datatype.number({ min: 1, max: 999 }).toString(),
-    complement: faker.random.alphaNumeric(3),
-    zipcode: faker.address.zipCode(),
+    street: faker.location.street(),
+    number: faker.location.buildingNumber(),
+    complement: faker.location.buildingNumber(),
+    zipcode: faker.location.zipCode(),
   };
 }
 
@@ -114,9 +114,9 @@ export async function createProductDB() {
   const product = await ProductSchema.create({
     name: faker.commerce.productName(),
     description: faker.lorem.sentence(),
-    unit_price: faker.datatype.number({ min: 100, max: 10000 }),
+    unit_price: faker.commerce.price({ min: 100, max: 200000 }),
     image: createPathAndImage(),
-    bar_code: faker.datatype.number({ min: 100, max: 9999 }),
+    bar_code: faker.number.int(100),
   });
 
   return product;
