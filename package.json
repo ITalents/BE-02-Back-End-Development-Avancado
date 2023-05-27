@@ -8,7 +8,8 @@
     "build": "tsc",
     "dev": "tsx watch src/server",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --detectOpenHandles",
-    "test:coverage": "npm run test -- --coverage"
+    "test:coverage": "npm run test -- --coverage",
+    "swagger-autogen": "node swagger.js"
   },
   "repository": {
     "type": "git",
@@ -62,6 +63,8 @@
     "multer": "^1.4.5-lts.1",
     "query-string": "^8.1.0",
     "reflect-metadata": "^0.1.13",
+    "swagger-autogen": "^2.23.1",
+    "swagger-ui-express": "^4.6.3",
     "tsyringe": "^4.7.0",
     "uuid": "^9.0.0"
   }

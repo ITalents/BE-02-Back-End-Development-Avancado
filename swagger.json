@@ -1,0 +1,125 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/signin": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/signin-github": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/add-category/{categoryId}/{productId}": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/remove-category/{categoryId}/{productId}": {
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/update": {
+      "put": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/delete": {
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/add-address": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/remove-address/{idAddress}": {
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/add-favorite-product/{productId}": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/remove-favorite-product/{productId}": {
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/avatar/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/avatar": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/github/signin": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    }
+  }
+}
