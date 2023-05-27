@@ -16,11 +16,11 @@ Siga as etapas abaixo para configurar o projeto em seu ambiente:
 
 1. Clone este repositório (ou faça o download do código-fonte):
    ```
-   git clone https://github.com/seu-usuario/marketplace.git
+   git clone git@github.com:ITalents/BE-02-Back-End-Development-Avancado.git
    ```
 2. Acesse o diretório do projeto:
    ```
-   cd marketplace
+   cd BE-02-Back-End-Development-Avancado
    ```
 3. Instale as dependências do projeto:
    ```
