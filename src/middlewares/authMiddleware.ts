@@ -4,6 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import "dotenv/config";
 import { FindByIdUserService } from "@/modules/Users/useCases/findUserById/findByIdUserService";
 import { NotFoundError, UnauthorizedError } from "@/helpers/errors/apiErrors";
+import { UsersRepository } from "@/modules/Users/repositories/implementations/UsersRepository";
 
 interface ITokenPayload extends JwtPayload {
   id: string;
@@ -25,13 +26,7 @@ class AuthMiddleware {
 
     jwt.verify(token, secret, async (err, decoded) => {
       try {
-        if (err) {
-          if (token.startsWith("g")) {
-            res.locals.token = token;
-            return next();
-          }
-          throw new UnauthorizedError("Invalid token!");
-        }
+        if (err) throw new UnauthorizedError("Invalid token!");
         if (!decoded) throw new UnauthorizedError("Invalid token!");
 
         const { id } = decoded as ITokenPayload;

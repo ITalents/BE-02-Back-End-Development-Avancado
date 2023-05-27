@@ -14,6 +14,6 @@ export class SigninService {
     const user = await this.authRepository.findUserByEmail(data.email);
     if (!user) throw new NotFoundError("User not found");
 
-    return this.authRepository.generateToken(user._id);
+    return this.authRepository.generateToken(user._id!);
   }
 }

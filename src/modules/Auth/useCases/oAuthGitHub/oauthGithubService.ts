@@ -1,8 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { IAuthRepository } from "@/modules/Auth/repositories/IAuthRepositories";
-import axios from "axios";
-import qs from "query-string";
 import { IParamsGithubToken } from "../../interfaces/ParamsGithubToken";
+import { ObjectId } from "mongodb";
 
 @injectable()
 export class OauthGithubService {
@@ -22,10 +21,27 @@ export class OauthGithubService {
 
     const urlGithubAccessToken = process.env.GITHUB_ACCESS_TOKEN_URL as string;
 
-    const token = this.authRepository.getTokenGitHub(
+    const gitHubToken = await this.authRepository.getTokenGitHub(
       urlGithubAccessToken,
       params
     );
+    const userGithub = await this.authRepository.findUserGitHub(
+      String(gitHubToken)
+    );
+
+    const userEmail = userGithub.email ?? `${userGithub.login}@github.com`;
+    const user = await this.authRepository.findUserByEmail(userEmail);
+
+    let userId = user?._id ?? new ObjectId();
+
+    if (!user) {
+      const newUser = await this.authRepository.createUserByGitHub(
+        userGithub,
+        userEmail
+      );
+      userId = newUser._id!;
+    }
+    const token = this.authRepository.generateToken(userId);
 
     return token;
   }

@@ -3,7 +3,7 @@ import { Address } from "./Address";
 import { ObjectId } from "mongodb";
 
 export class User {
-  _id: ObjectId;
+  _id?: ObjectId;
   name: string;
   email: string;
   password: string;
@@ -14,14 +14,14 @@ export class User {
   created_at: Date;
 
   constructor(
-    _id: ObjectId,
     name: string,
     email: string,
     password: string,
     admin: boolean,
     image: string,
     addresses: Address[],
-    favorite_products: Product[]
+    favorite_products: Product[],
+    _id?: ObjectId
   ) {
     this._id = _id;
     this.name = name;
