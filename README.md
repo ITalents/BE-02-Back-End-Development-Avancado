@@ -83,6 +83,16 @@ A estrutura do projeto é organizada em pastas para facilitar a manutenção e e
 ## Documentação
 Para ver a documentação da API, acesse a rota `http://localhost:5000/doc` no navegador, após rodar o projeto com `npm run dev`.
 
+## Front-end
+Para testar o front-end que simula o OAuth com GitHub, basta entrar na pasta `frontend-oauth-github` no terminal e executar:
+```
+npm install
+```
+Após isso, ainda dentro da pasta do front-end no terminal, execute:
+```
+npm run dev
+```
+Agora abra no navegador o endereço `http://localhost:1234` e pronto, você está acessando o front-end, agora é só testar.
 ## Contribuição
 
 Se você deseja contribuir com este projeto, sinta-se à vontade para criar um fork e enviar pull requests com melhorias, correções de bugs ou novos recursos. Ficaremos felizes em receber contribuições da comunidade.
